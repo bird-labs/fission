@@ -1,11 +1,14 @@
 var nrow = 9;
 var ncol = 6;
+var turn = 1;
 
 var board = new Array(nrow);
+var player = new Array(nrow);
 
 for (var i = 0; i < nrow; i++) 
 {
 	board[i] = new Array(ncol);
+	player[i] = new Array(ncol);
 }
 
 for (var i = 0; i < nrow; i++)
@@ -13,10 +16,29 @@ for (var i = 0; i < nrow; i++)
 	for (var j = 0; j < ncol; j++)
 	{
 		board[i][j] = 0;
+		player[i][j] = 0;
 	}
 }
 
+function incrementor (i,j){
+	if ((player[i][j] == turn) || (player[i][j] == 0)){
+		increment(i,j);
+		changeTurn();
+	}
+	else return;
+}
+
+function changeTurn(){
+	if (turn == 1) turn = 2;
+	else if (turn == 2) turn = 1;
+}
+
+function getTurn(){
+	return turn;
+}
+
 function increment (i, j) {
+	player[i][j] = turn;
 	if ((i == 0 && j == 0) || (i == 0 && j == (ncol - 1)) || (i == (nrow - 1) && j == 0) || (i == (nrow - 1) && j == (ncol - 1)))
 	{
 		if (board[i][j] == 1) 
