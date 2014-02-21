@@ -1,6 +1,8 @@
 var nrow = 9;
 var ncol = 6;
 var turn = 1;
+var p1count = 0;
+var p2count = 0;
 
 var board = new Array(nrow);
 var player = new Array(nrow);
@@ -64,6 +66,10 @@ function increment (i, j) {
 		else board[i][j]++;	
 	}
 	updateCell(i, j, board[i][j]);
+}
+
+function getPlayer (i, j) {
+	return player[i][j]
 }
 
 function blast (i,j) {
