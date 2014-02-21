@@ -44,6 +44,7 @@ function incrementor (i,j){
 		increment(i,j);
 		changeTurn();
 		clicks++;
+		if (click >= 2) didWin();
 	}
 	else return;
 }
