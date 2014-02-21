@@ -24,7 +24,7 @@ function increment (i, j) {
 			blast(i,j);
 		}
 		else board[i][j] = 1;
-	};
+	}
 	else if (j == 0 || i == 0 || j == (ncol - 1) || i == (nrow - 1))  
 	{
 		if (board[i][j] == 2) 
