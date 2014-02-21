@@ -1,8 +1,7 @@
 var nrow = 9;
 var ncol = 6;
 var turn = 1;
-var p1count = 0;
-var p2count = 0;
+var clicks = 0;
 
 var board = new Array(nrow);
 var player = new Array(nrow);
@@ -22,10 +21,29 @@ for (var i = 0; i < nrow; i++)
 	}
 }
 
+var found1 = false;
+var found2 = false;
+
+function didWin()
+{
+	for (var i = 0; i < nrow; i++)
+	{
+		for (var j = 0; j < ncol; j++)
+		{
+			if (player[i][j] == 1) found1 = true;
+			else if (player[i][j] == 2) found2 = true;
+		}
+	}
+	if (found1 == false) winner(2);
+	else if (found2 == false) winner(1);
+	else return 0;
+}
+
 function incrementor (i,j){
 	if ((player[i][j] == turn) || (player[i][j] == 0)){
 		increment(i,j);
 		changeTurn();
+		clicks++;
 	}
 	else return;
 }
