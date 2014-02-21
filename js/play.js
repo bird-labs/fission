@@ -130,4 +130,5 @@ function blast (i,j) {
 		increment(i, (j + 1));
 		increment((i - 1), j);
 	}
+	player[i][j] = 0;
 }
