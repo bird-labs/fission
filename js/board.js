@@ -31,12 +31,10 @@ function setVal(){
 function updateCell(row,col,state){
 
 	var cell = '#' + cellId(row,col);
+	
 	turna = getTurn() - 1;
-	//alert(turn);
-/*	$(cell).fadeOut(1000,
-		function{*/
-			$(cell).empty();
-		// });
+	$(cell).empty()
+	
 	if(state == 0){
 		$(cell).css({
 				"background-color":"rgb(30,30,30)"
@@ -63,7 +61,8 @@ function updateCell(row,col,state){
 	}
 
 	if(state == 3){
-		$(cell).append('<svg style="height:100%; width: 100%;"> \
+		$(cell).append('\
+			<svg style="height:100%; width: 100%;"> \
 		 	 <circle cx="50" cy="33" r="15" stroke="green" stroke-width="4" fill="' +  colors[turna] + '" /> \
 		 	 <circle cx="33" cy="66" r="15" stroke="green" stroke-width="4" fill="' +  colors[turna] + '" /> \
 		 	 <circle cx="66" cy="66" r="15" stroke="green" stroke-width="4" fill="' +  colors[turna] + '" /> \
@@ -91,20 +90,20 @@ function parseId(id , data){
 	}
 }
 
-function jiggle(id,mode,deg){
+function jiggle(id,mode,deg,ratio){
 	if(deg < 0.005) return;
 	var ele = $('#' + id);
 	if(mode == 0){
 		ele.css({
 			"transform": "rotate(-" + deg + "deg)"
 		});
-		setTimeout(function(){jiggle(id,1,deg);},100);
+		setTimeout(function(){jiggle(id,1,deg,ratio);},100);
 	}
 	if(mode == 1){
 		ele.css({
 			"transform": "rotate(" + deg + "deg)"
 		});
-		setTimeout(function(){jiggle(id,0,deg/2);},100);
+		setTimeout(function(){jiggle(id,0,deg/ratio,ratio);},100);
 	}
 }
 	
@@ -117,14 +116,14 @@ function createCell(row , col){
 		function(){
 			incrementor(row,col);
 			
-			jiggle(cell,0,1.8);
+			jiggle(cell,0,4,1.5);
 		},
 		false);
 	document.getElementById(cell).
 	addEventListener(
 		'mouseover',
 		function(){
-			jiggle(cell,0,1);
+			jiggle(cell,0,2,2);
 		},
 		false);
 }

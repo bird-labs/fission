@@ -21,11 +21,12 @@ for (var i = 0; i < nrow; i++)
 	}
 }
 
+function didWin()
+{
+	
 var found1 = false;
 var found2 = false;
 
-function didWin()
-{
 	for (var i = 0; i < nrow; i++)
 	{
 		for (var j = 0; j < ncol; j++)
@@ -44,7 +45,7 @@ function incrementor (i,j){
 		increment(i,j);
 		changeTurn();
 		clicks++;
-		if (click >= 2) didWin();
+		if (clicks >= 2) didWin();
 	}
 	else return;
 }
