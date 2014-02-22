@@ -2,7 +2,7 @@ var nrow = 9;
 var ncol = 6;
 var turn = 1;
 var clicks = 0;
-
+var numberOfPlayers = 2;
 var board = new Array(nrow);
 var player = new Array(nrow);
 
@@ -23,20 +23,25 @@ for (var i = 0; i < nrow; i++)
 
 function didWin()
 {
-	
-var found1 = false;
-var found2 = false;
+var found = new Array();
+for(var i = 0; i <= numberOfPlayers ; i ++) found[i] = false;
 
 	for (var i = 0; i < nrow; i++)
 	{
 		for (var j = 0; j < ncol; j++)
 		{
-			if (player[i][j] == 1) found1 = true;
-			else if (player[i][j] == 2) found2 = true;
+			found[player[i][j]] = true;
 		}
 	}
-	if (found1 == false) winner(2);
-	else if (found2 == false) winner(1);
+
+var win = 0, count = 0;
+for(var i = 1; i <= numberOfPlayers ; i ++) {
+	if(found[i]) {
+		count++;
+		win = i;
+	}
+}
+	if(count == 1) winner(win);
 	else return 0;
 }
 
@@ -51,8 +56,9 @@ function incrementor (i,j){
 }
 
 function changeTurn(){
-	if (turn == 1) turn = 2;
-	else if (turn == 2) turn = 1;
+	if (turn != numberOfPlayers) turn++;
+	else if (turn == numberOfPlayers) turn = 1;
+	updateTurnColor();
 }
 
 function getTurn(){
@@ -64,28 +70,28 @@ function increment (i, j) {
 	if ((i == 0 && j == 0) || (i == 0 && j == (ncol - 1)) || (i == (nrow - 1) && j == 0) || (i == (nrow - 1) && j == (ncol - 1)))
 	{
 		if (board[i][j] == 1) 
-		{
 			blast(i,j);
-		}
 		else board[i][j] = 1;
 	}
 	else if (j == 0 || i == 0 || j == (ncol - 1) || i == (nrow - 1))  
 	{
 		if (board[i][j] == 2) 
-		{
 			blast(i,j);
-		}
 		else board[i][j]++;
 	}
 	else
 	{
 		if (board[i][j] == 3)
-		{
 			blast(i,j);
-		}
 		else board[i][j]++;	
 	}
 	updateCell(i, j, board[i][j]);
+}
+
+function sleep(ms) {
+    var time = new Date();
+    time.setTime(time.getTime() + ms);
+    while (new Date().getTime() < time.getTime()) {}
 }
 
 function getPlayer (i, j) {
@@ -93,7 +99,6 @@ function getPlayer (i, j) {
 }
 
 function blast (i,j) {
-	//Corner elements
 	if (i == 0 && j == 0)
 	{
 		board[i][j] = 0;
