@@ -20,6 +20,14 @@ function winner(turn){
 	alert(turn + "is the Winner!");
 }
 
+function setVal(){
+	for(var i = 0 ; i < nrow ; i ++ ){
+		for(var j = 0 ; j < ncol ; j ++ ){
+			$('#' + cellId(i,j)).append(getPlayer(i,j));	
+		}	
+	}
+}
+
 function updateCell(row,col,state){
 
 	var cell = '#' + cellId(row,col);
