@@ -3,11 +3,19 @@ var ncol = 6;
 
 $(function(){
 	setUpBoard();
-})
+});
 
-function createCell(row,col){
-	$('#gameConsole').append('<td id="cell-' + row + '-' + col + '" class="gameCell">1</td>');
-	document.getElementById('cell-' + row + '-' + col + '').
+function cellId(row,col){
+	return 'cell-' + row + '-' + col + '';
+}
+
+/*function increment(row,col){
+	$('#' + cellId(row,col)).append('Fuck');
+}*/
+
+function createCell(row , col){
+	$('#gameConsole').append('<td id="cell-' + row + '-' + col + '" class="gameCell">0</td>');
+	document.getElementById(cellId(row,col)).
 	addEventListener(
 		'click',
 		function(){
@@ -16,10 +24,10 @@ function createCell(row,col){
 		false);
 }
 
-function createRow(rowNum){
+function createRow(row){
 	$('#gameConsole').append('<tr id="row-' + row + '" class="gameRow">');	
 	for(var i = 0; i < ncol ; i ++){
-		createCell(rowNum,i);
+		createCell(row,i);
 	}
 	$('#gameConsole').append('</tr>');
 }
