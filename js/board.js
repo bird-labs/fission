@@ -3,6 +3,7 @@ var ncol = 6;
 var turna = 0;
 var size;
 jiggleTime = 100;
+//red green yellow blue
 var colors = ["#FF0000","#22B14C","#FFC90E","#00A2E8"];
 var colorDark = ["#880015","#0E4B20","#D37B03","#006F9D"];
 var colorBack = ["#8F0C12","#115726","#D2B402","#00618A"];
@@ -152,7 +153,9 @@ function updateCell(row,col,state){
 function rotateAround(id, deg,delta,revs){
 	if(deg> revs*360) return;
 	var ele = $('#' + id);
-	if(ele == undefined || ele == null) return;
+	//if(ele == undefined || ele == null) return;
+	//if ($.isEmptyObject($.find(#+'id'))) return;
+	if(ele.length == 0) return;
 	ele.css({
 			"transform": "rotate(" + deg + "deg)"
 	});
@@ -226,6 +229,16 @@ function jiggledown(id,mode,deg,ratio){
 function updateTurnColor(){
 	turna = getTurn() - 1;
 	$('.gameRow').css({
+		"border-left":"10px solid " + colorBack[turna] + "",
+		"border-right":"10px solid " + colorBack[turna] + ""
+	});
+	$('#row-0').css({
+		"border-top":"10px solid " + colorBack[turna] + "",
+		"border-left":"10px solid " + colorBack[turna] + "",
+		"border-right":"10px solid " + colorBack[turna] + ""
+	});
+	$('#row-'+ (nrow - 1)).css({
+		"border-bottom":"10px solid " + colorBack[turna] + "",
 		"border-left":"10px solid " + colorBack[turna] + "",
 		"border-right":"10px solid " + colorBack[turna] + ""
 	});

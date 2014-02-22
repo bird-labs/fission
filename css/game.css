@@ -16,7 +16,8 @@ body{
 .gameConsole{
 	padding-top: 5px;
 	width: 100%;
-	background-color: rgb(60,60,60);
+	/*background-color: rgb(60,60,60);*/
+	background:url(../images/3.png);
 	text-align: center;
 }
 #logoBoard{
@@ -28,8 +29,8 @@ body{
 .gameTable{
 	table-layout: fixed;
 	margin: auto;
-	border-right: 5px solid black;
-	border-left: 5px solid black;
+	border: 5px solid black;
+	/*border-left: 5px solid black;*/
 	border-radius: 1px;
 }
 .gameCell{
