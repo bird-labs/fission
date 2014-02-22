@@ -12,6 +12,10 @@ function cellId(row,col){
 	return 'cell-' + row + '-' + col + '';
 }
 
+/*function increment(row,col){
+	$('#' + cellId(row,col)).append('Fuck');
+}*/
+
 function winner(turn){
 	alert(turn + "is the Winner!");
 }
