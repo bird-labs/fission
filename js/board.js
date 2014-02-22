@@ -65,59 +65,61 @@ function updateCell(row,col,state){
 		}
 
 	if(state == 1){
-		$(cell).append('<svg style="height:99%; width: 99%;"> \
-<defs>\
-    <linearGradient id="grad-'+celli+'" x1="0%" y1="0%" x2="100%" y2="0%">\
-      <stop offset="0%" style="stop-color:' + colors[turna] + ';stop-opacity:1" />\
-      <stop offset="100%" style="stop-color:' + colorDark[turna] + ';stop-opacity:1" />\
-    </linearGradient>\
-  </defs>\
-		 	 <circle cx="50%" cy="50%" r="25%" stroke="' +  colors[turna] + '" stroke-width="1" fill="url(#grad-'+celli+')" /> \
-		</svg>');
+		$(cell).append('\
+			<svg  id="svg-' + celli + '-1" style="height:90%; width: 90%;"> \
+			<defs>\
+			<linearGradient id="grad-'+celli+'-1" x1="0%" y1="0%" x2="100%" y2="0%">\
+			<stop offset="0%" style="stop-color:' + colors[turna] + ';stop-opacity:1" />\
+			<stop offset="100%" style="stop-color:' + colorDark[turna] + ';stop-opacity:1" />\
+			</linearGradient>\
+			</defs>\
+			<circle cx="50%" cy="50%" r="25%" stroke="' +  colors[turna] + '"\
+			stroke-width="1" fill="url(#grad-'+celli+'-1)" /> \
+			</svg>');
 		$(cell).css({
 				"background-color":"rgb(30,30,30)"
 		});
 	}
 
 	if(state == 2){
-		$(cell).append('<svg style="height:99%; width: 99%;"> \
-<defs>\
-    <linearGradient id="grad-'+celli+'" x1="0%" y1="0%" x2="100%" y2="0%">\
-      <stop offset="0%" style="stop-color:' + colors[turna] + ';stop-opacity:1" />\
-      <stop offset="100%" style="stop-color:' + colorDark[turna] + ';stop-opacity:1" />\
-    </linearGradient>\
-  </defs>\
-		 	 <circle cx="25%" cy="50%" r="20%" stroke="' +  colors[turna] + '" stroke-width="1" fill="url(#grad-'+celli+')" /> \
-		 	 <circle cx="75%" cy="50%" r="20%" stroke="' +  colors[turna] + '" stroke-width="1" fill="url(#grad-'+celli+')" /> \
-		</svg>');
+		$(cell).append('\
+			<svg  id="svg-' + celli + '-2" style="height:90%; width: 90%;"> \
+			<defs>\
+			<linearGradient id="grad-'+celli+'-2" x1="0%" y1="0%" x2="100%" y2="0%">\
+			<stop offset="0%" style="stop-color:' + colors[turna] + ';stop-opacity:1" />\
+			<stop offset="100%" style="stop-color:' + colorDark[turna] + ';stop-opacity:1" />\
+			</linearGradient>\
+			</defs>\
+			<circle cx="25%" cy="50%" r="20%" stroke="' +  colors[turna] + '"\
+			stroke-width="1" fill="url(#grad-'+celli+'-2)" /> \
+			<circle cx="75%" cy="50%" r="20%" stroke="' +  colors[turna] + '"\
+			stroke-width="1" fill="url(#grad-'+celli+'-2)" /> \
+			</svg>');
 		$(cell).css({
 				"background-color":"rgb(30,30,30)"
-				//"background-color":"rgb(0,162,232)"
 		});
 	}
 
 	if(state == 3){
 		$(cell).append('\
-			<svg style="height:99%; width: 99%;"> \
+			<svg id="svg-' + celli + '-3" style="height:90%; width: 90%;"> \
 			<defs>\
-    <linearGradient id="grad-'+celli+'" x1="0%" y1="0%" x2="100%" y2="0%">\
-      <stop offset="0%" style="stop-color:' + colors[turna] + ';stop-opacity:1" />\
-      <stop offset="100%" style="stop-color:' + colorDark[turna] + ';stop-opacity:1" />\
-    </linearGradient>\
-  </defs>\
-		 	 <circle cx="50%" cy="33%" r="15%" stroke="' +  colors[turna] + '" stroke-width="1" fill="url(#grad-'+celli+')" /> \
-		 	 <circle cx="30%" cy="66%" r="15%" stroke="' +  colors[turna] + '" stroke-width="1" fill="url(#grad-'+celli+')" /> \
-		 	 <circle cx="70%" cy="66%" r="15%" stroke="' +  colors[turna] + '" stroke-width="1" fill="url(#grad-'+celli+')" /> \
-		</svg>');
+			<linearGradient id="grad-'+celli+'-3" x1="0%" y1="0%" x2="100%" y2="0%">\
+			<stop offset="0%" style="stop-color:' + colors[turna] + ';stop-opacity:1" />\
+			<stop offset="100%" style="stop-color:' + colorDark[turna] + ';stop-opacity:1" />\
+			</linearGradient>\
+			</defs>\
+			<circle cx="50%" cy="33%" r="15%" stroke="' +  colors[turna] + '"\
+			stroke-width="1" fill="url(#grad-'+celli+'-3)" /> \
+			<circle cx="30%" cy="66%" r="15%" stroke="' +  colors[turna] + '"\
+			stroke-width="1" fill="url(#grad-'+celli+'-3)" /> \
+			<circle cx="70%" cy="66%" r="15%" stroke="' +  colors[turna] + '"\
+			stroke-width="1" fill="url(#grad-'+celli+'-3)" /> \
+			</svg>');
 		$(cell).css({
 				"background-color":"rgb(30,30,30)"
-				//"background-color":"rgb(0,162,232)"
 		});
 	}
-
-	// $('.gameCell').height(size);
-	// $('.gameCell').width(size);
-//	$(cell).append(state);
 }
 
 function parseId(id , data){
@@ -173,8 +175,8 @@ function createCell(row , col){
 			jiggle(cell,0,3,1.5);
 		},
 		false);
-	// document.getElementById(cell).
-	// addEventListener('mouseover',function(){jiggle(cell,0,2,2);},false);
+/*	 document.getElementById(cell).
+	 addEventListener('mouseover',function(){jiggle(cell,0,2,2);},false);*/
 }
 
 function createRow(row){

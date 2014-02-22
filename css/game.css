@@ -8,6 +8,7 @@
 	text-align: center;
 }
 .gameTable{
+	table-layout: fixed;
 	margin: auto;
 	border: 3px solid white;
 	border-radius: 3px;
