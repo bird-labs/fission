@@ -17,32 +17,37 @@ for (var i = 0; i < nrow; i++)
 }
 
 function increment (i, j) {
+
 	if ((i == 0 && j == 0) || (i == 0 && j == (ncol - 1)) || (i == (nrow - 1) && j == 0) || (i == (nrow - 1) && j == (ncol - 1)))
 	{
 		if (board[i][j] == 1) 
 		{
 			blast();
-		};
+		}
 		else board[i][j] = 1;
-	};
+	}
 	else if (j == 0 || i == 0 || j == (ncol - 1) || i == (nrow - 1))  
 	{
 		if (board[i][j] == 2) 
 		{
 			blast();
-		};
+		}
 		else board[i][j]++;
-	};
+	}
 	else
 	{
 		if (board[i][j] == 3)
 		{
 			blast();
-		};
+		}
 		else board[i][j]++;	
 	}
+	show(i,j);
 }
 
+function show(i,j){
+	$('#' + cellId(i,j)).append(board[i][j]);
+}
 function blast () {
 	console.log("blasted!")
 }
