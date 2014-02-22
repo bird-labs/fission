@@ -1,6 +1,8 @@
 var nrow = 9;
 var ncol = 6;
-var turn = 0;
+var turna = 0;
+
+var colors = ["red","green"];
 
 $(function(){
 	setUpBoard();
@@ -14,47 +16,57 @@ function cellId(row,col){
 	$('#' + cellId(row,col)).append('Fuck');
 }*/
 
+function winner(turn){
+	alert(turn + "is the Winner!");
+}
+
 function updateCell(row,col,state){
 
 	var cell = '#' + cellId(row,col);
+	turna = getTurn() - 1;
+	//alert(turn);
 /*	$(cell).fadeOut(1000,
 		function{*/
 			$(cell).empty();
 		// });
-	if(state == 0)
+	if(state == 0){
 		$(cell).css({
-				"background-color":"rgb()"
+				"background-color":"rgb(30,30,30)"
 		});
+		}
 
-	if(state == 1)
+	if(state == 1){
 		$(cell).append('<svg style="height:100%; width: 100%;"> \
-		 	 <circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" /> \
+		 	 <circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="' +  colors[turna] + '" /> \
 		</svg>');
 		$(cell).css({
 				"background-color":"rgb(0,162,232)"
 		});
+	}
 
-	if(state == 2)
+	if(state == 2){
 		$(cell).append('<svg style="height:100%; width: 100%;"> \
-		 	 <circle cx="25" cy="50" r="20" stroke="green" stroke-width="4" fill="yellow" /> \
-		 	 <circle cx="75" cy="50" r="20" stroke="green" stroke-width="4" fill="yellow" /> \
+		 	 <circle cx="25" cy="50" r="20" stroke="green" stroke-width="4" fill="' +  colors[turna] + '" /> \
+		 	 <circle cx="75" cy="50" r="20" stroke="green" stroke-width="4" fill="' +  colors[turna] + '" /> \
 		</svg>');
 		$(cell).css({
 				"background-color":"rgb(34,177,76)"
 		});
+	}
 
-	if(state == 3)
+	if(state == 3){
 		$(cell).append('<svg style="height:100%; width: 100%;"> \
-		 	 <circle cx="50" cy="33" r="15" stroke="green" stroke-width="4" fill="yellow" /> \
-		 	 <circle cx="33" cy="66" r="15" stroke="green" stroke-width="4" fill="yellow" /> \
-		 	 <circle cx="66" cy="66" r="15" stroke="green" stroke-width="4" fill="yellow" /> \
+		 	 <circle cx="50" cy="33" r="15" stroke="green" stroke-width="4" fill="' +  colors[turna] + '" /> \
+		 	 <circle cx="33" cy="66" r="15" stroke="green" stroke-width="4" fill="' +  colors[turna] + '" /> \
+		 	 <circle cx="66" cy="66" r="15" stroke="green" stroke-width="4" fill="' +  colors[turna] + '" /> \
 		</svg>');
 		$(cell).css({
 				"background-color":"rgb(255,127,39)"
 		});
+	}
 
 
-	$(cell).append(state);
+//	$(cell).append(state);
 }
 
 function parseId(id , data){
