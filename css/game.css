@@ -7,6 +7,12 @@
 	background-color: rgb(60,60,60);
 	text-align: center;
 }
+#logoBoard{
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	margin: 0px;
+}
 .gameTable{
 	table-layout: fixed;
 	margin: auto;
@@ -15,6 +21,8 @@
 	box-shadow: 2px 2px black;
 }
 .gameCell{
+	text-align: center;
+	vertical-align: middle;
 	height: 100px;
 	width: 100px;
 	margin: 10px;

@@ -5,10 +5,14 @@ var size;
 jiggleTime = 100;
 
 var colors = ["#FF0000","#22B14C","yellow"];
-var colorDark = ["#880015","#156F30","yellow"];
+var colorDark = ["#880015","#0E4B20","yellow"];
 var colorBack = ["#8F0C12","#115726","yellow"]
 
 $(function(){
+	setTimeout(
+		function(){
+			$('#logoBoard').fadeOut();
+		},1500);
 	setUpBoard();
 	setUpCredentials();
 	$('.gameTable').css({
@@ -21,8 +25,12 @@ function setUpCredentials(){
 	var totalWidth = window.innerWidth;
 	var totalHeight = window.innerHeight;
 	
+
 	$('.gameConsole').height(totalHeight);
 	$('.gameConsole').width(totalWidth);
+
+	$('#logoBoard').height(totalHeight);
+	$('#logoBoard').width(totalWidth);
 
 	var cellWidth = (totalWidth - 12*ncol)/ncol;
 	var cellHeight = (totalHeight - 12*nrow - 12)/nrow;
@@ -66,60 +74,76 @@ function updateCell(row,col,state){
 
 	if(state == 1){
 		$(cell).append('\
-			<svg  id="svg-' + celli + '-1" style="height:90%; width: 90%;"> \
+			<svg  id="svg-' + celli + '-1" style="text-align:center; vertical-align:middle;\
+			height:90%; width: 90%;"> \
 			<defs>\
 			<linearGradient id="grad-'+celli+'-1" x1="0%" y1="0%" x2="100%" y2="0%">\
 			<stop offset="0%" style="stop-color:' + colors[turna] + ';stop-opacity:1" />\
 			<stop offset="100%" style="stop-color:' + colorDark[turna] + ';stop-opacity:1" />\
 			</linearGradient>\
 			</defs>\
-			<circle cx="50%" cy="50%" r="25%" stroke="' +  colors[turna] + '"\
+			<circle cx="50%" cy="50%" r="25%" stroke="url(#grad-'+celli+'-1)"\
 			stroke-width="1" fill="url(#grad-'+celli+'-1)" /> \
 			</svg>');
 		$(cell).css({
 				"background-color":"rgb(30,30,30)"
 		});
+		rotateAround('svg-' + celli + '-1',0,1);
 	}
-
 	if(state == 2){
 		$(cell).append('\
-			<svg  id="svg-' + celli + '-2" style="height:90%; width: 90%;"> \
+			<svg  id="svg-' + celli + '-2" style="text-align:center; vertical-align:middle;\
+			height:90%; width: 90%;"> \
 			<defs>\
 			<linearGradient id="grad-'+celli+'-2" x1="0%" y1="0%" x2="100%" y2="0%">\
 			<stop offset="0%" style="stop-color:' + colors[turna] + ';stop-opacity:1" />\
 			<stop offset="100%" style="stop-color:' + colorDark[turna] + ';stop-opacity:1" />\
 			</linearGradient>\
 			</defs>\
-			<circle cx="25%" cy="50%" r="20%" stroke="' +  colors[turna] + '"\
+			<circle cx="25%" cy="50%" r="20%" stroke="url(#grad-'+celli+'-2)"\
 			stroke-width="1" fill="url(#grad-'+celli+'-2)" /> \
-			<circle cx="75%" cy="50%" r="20%" stroke="' +  colors[turna] + '"\
+			<circle cx="75%" cy="50%" r="20%" stroke="url(#grad-'+celli+'-2)"\
 			stroke-width="1" fill="url(#grad-'+celli+'-2)" /> \
 			</svg>');
 		$(cell).css({
 				"background-color":"rgb(30,30,30)"
 		});
+		rotateAround('svg-' + celli + '-2',0,4,2);
 	}
-
 	if(state == 3){
 		$(cell).append('\
-			<svg id="svg-' + celli + '-3" style="height:90%; width: 90%;"> \
+			<svg id="svg-' + celli + '-3" style="text-align:center; vertical-align:middle;\
+			height:90%; width: 90%;"> \
 			<defs>\
 			<linearGradient id="grad-'+celli+'-3" x1="0%" y1="0%" x2="100%" y2="0%">\
 			<stop offset="0%" style="stop-color:' + colors[turna] + ';stop-opacity:1" />\
 			<stop offset="100%" style="stop-color:' + colorDark[turna] + ';stop-opacity:1" />\
 			</linearGradient>\
 			</defs>\
-			<circle cx="50%" cy="33%" r="15%" stroke="' +  colors[turna] + '"\
+			<circle cx="50%" cy="30%" r="15%" stroke="url(#grad-'+celli+'-3)"\
 			stroke-width="1" fill="url(#grad-'+celli+'-3)" /> \
-			<circle cx="30%" cy="66%" r="15%" stroke="' +  colors[turna] + '"\
+			<circle cx="30%" cy="64.64%" r="15%" stroke="url(#grad-'+celli+'-3)"\
 			stroke-width="1" fill="url(#grad-'+celli+'-3)" /> \
-			<circle cx="70%" cy="66%" r="15%" stroke="' +  colors[turna] + '"\
+			<circle cx="70%" cy="64.64%" r="15%" stroke="url(#grad-'+celli+'-3)"\
 			stroke-width="1" fill="url(#grad-'+celli+'-3)" /> \
 			</svg>');
 		$(cell).css({
 				"background-color":"rgb(30,30,30)"
 		});
+		rotateAround('svg-' + celli + '-3',0,8,3);
 	}
+}
+
+function rotateAround(id, deg,delta,revs){
+	if(deg> revs*360) return;//deg -= 360;
+	var ele = $('#' + id);
+	if(ele == undefined || ele == null) return;
+	ele.css({
+			"transform": "rotate(" + deg + "deg)"
+	});
+	setTimeout(function(){
+		rotateAround(id,deg+delta,delta,revs);
+	},100);
 }
 
 function parseId(id , data){
@@ -136,20 +160,50 @@ function parseId(id , data){
 	}
 }
 
-function jiggle(id,mode,deg,ratio){
+function jiggleup(id,mode,deg,ratio){
+	if(deg > 2) return jiggledown(id,0,2,ratio);
+	var ele = $('#' + id);
+	if(mode == 0){
+		setTimeout(function(){ele.css({
+			"transform": "rotate(-" + deg/2 + "deg)"
+		});},0);
+		setTimeout(function(){ele.css({
+			"transform": "rotate(-" + deg + "deg)"
+		});},jiggleTime/2);
+
+		setTimeout(function(){jiggleup(id,1,deg,ratio);},jiggleTime);
+	}
+	if(mode == 1){
+		setTimeout(function(){ele.css({
+			"transform": "rotate(" + deg/2 + "deg)"
+		});},0);
+		setTimeout(function(){ele.css({
+			"transform": "rotate(" + deg + "deg)"
+		});},jiggleTime/2);
+		setTimeout(function(){jiggleup(id,0,deg*ratio,ratio);},jiggleTime);
+	}
+}
+
+function jiggledown(id,mode,deg,ratio){
 	if(deg < 0.005) return;
 	var ele = $('#' + id);
 	if(mode == 0){
 		ele.css({
-			"transform": "rotate(-" + deg + "deg)"
+			"transform": "rotate(-" + deg/2 + "deg)"
 		});
-		setTimeout(function(){jiggle(id,1,deg,ratio);},jiggleTime);
+		setTimeout(function(){ele.css({
+			"transform": "rotate(-" + deg + "deg)"
+		});},jiggleTime/2);
+		setTimeout(function(){jiggledown(id,1,deg,ratio);},jiggleTime);
 	}
 	if(mode == 1){
 		ele.css({
-			"transform": "rotate(" + deg + "deg)"
+			"transform": "rotate(" + deg/2 + "deg)"
 		});
-		setTimeout(function(){jiggle(id,0,deg/ratio,ratio);},jiggleTime);
+		setTimeout(function(){ele.css({
+			"transform": "rotate(" + deg + "deg)"
+		});},jiggleTime/2);
+		setTimeout(function(){jiggledown(id,0,deg/ratio,ratio);},jiggleTime);
 	}
 }
 
@@ -172,7 +226,7 @@ function createCell(row , col){
 		'click',
 		function(){
 			incrementor(row,col);
-			jiggle(cell,0,3,1.5);
+			jiggledown(cell,0,3,1.5);
 		},
 		false);
 /*	 document.getElementById(cell).
