@@ -4,9 +4,9 @@ var turna = 0;
 var size;
 jiggleTime = 100;
 
-var colors = ["#FF0000","#22B14C","#FFC90E"];
-var colorDark = ["#880015","#0E4B20","#D37B03"];
-var colorBack = ["#8F0C12","#115726","#D2B402"]
+var colors = ["#FF0000","#22B14C","#FFC90E","#00A2E8"];
+var colorDark = ["#880015","#0E4B20","#D37B03","#006F9D"];
+var colorBack = ["#8F0C12","#115726","#D2B402","#00618A"];
 
 $(function(){
 	setTimeout(
