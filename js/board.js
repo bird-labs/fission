@@ -12,7 +12,7 @@ $(function(){
 	setTimeout(
 		function(){
 			$('#logoBoard').fadeOut();
-		},1500);
+		},100);
 	setUpBoard();
 	setUpCredentials();
 	$('.gameTable').css({
@@ -230,28 +230,27 @@ function updateTurnColor(){
 
 	/*$('.gameTable').animate({
 		"border-color":"" + colors[turna] + ""
-	},500);
-	*/$('.gameTable').css({
-/*		"background-color":""+ colorBack[turna]+""
-*/	
-	"background-color":"black"
+	},500);*/
 
-});
+	$('.gameRow').css({
+		"border-left":"10px solid " + colorBack[turna] + "",
+		"border-right":"10px solid " + colorBack[turna] + ""
+	});
+
 }
 	
 function createCell(row , col){
 	var cell = cellId(row,col);
 	$('#row-' + row).append('<td id="' + cell + '" class="gameCell"></td>');
-	document.getElementById(cell).
-	addEventListener(
+	var elem = document.getElementById(cell);
+	elem.addEventListener(
 		'click',
 		function(){
+			//elem.style.backgroundColor = "rgb(50,50,50)";
 			incrementor(row,col);
-		//	jiggledown(cell,0,3,1.5);
+			//elem.style.backgroundColor = "rgb(30,30,30)";
 		},
 		false);
-/*	 document.getElementById(cell).
-	 addEventListener('mouseover',function(){jiggle(cell,0,2,2);},false);*/
 }
 
 function createRow(row){

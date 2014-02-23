@@ -28,6 +28,8 @@ body{
 .gameTable{
 	table-layout: fixed;
 	margin: auto;
+	border-right: 5px solid black;
+	border-left: 5px solid black;
 	border-radius: 1px;
 }
 .gameCell{
@@ -46,4 +48,7 @@ body{
 	background-color: rgb(50,50,50);
 }
 .gameRow{
+	border-right: 10px solid black;
+	border-left: 10px solid black;
+	
 }
