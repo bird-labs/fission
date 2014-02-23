@@ -19,7 +19,6 @@ function setup(){
 	{
 	playerscore[i] = 0;
 	}
-	setUpScores();
 	for (var i = 0; i < nrow; i++) 
 	{
 		board[i] = new Array(ncol);

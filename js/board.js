@@ -87,7 +87,7 @@ function setUpCredentials(){
 	$('.gameConsole').width(totalWidth);
 	$('#logoBoard').height(totalHeight);
 	$('#logoBoard').width(totalWidth);
-	var cellWidth = (totalWidth - 4*ncol - 30)/ncol;
+	var cellWidth = (totalWidth - 4*ncol - 40)/ncol;
 	var cellHeight = (totalHeight - 4*nrow - 10)/nrow;
 	size = 0;
 	if(cellHeight <= cellWidth) size = cellHeight;
