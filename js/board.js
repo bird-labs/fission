@@ -1,7 +1,7 @@
 var nrow = 9;
 var ncol = 6;
 var turna = 0;
-var size;
+var size; var state = 0;
 var nPlay = getPlayers();
 jiggleTime = 100;
 var playerscore = new Array(nPlay);
@@ -29,13 +29,22 @@ $(function(){
 	updateTurnColor();
 });
 function ToggleScoreBoard(){
+	if(state == 0){
+		$('#myicon').removeClass('glyphicon-step-backward');
+		$('#myicon').addClass('glyphicon-step-forward');
+		state = 1;
+	}
+	else{
+		$('#myicon').addClass('glyphicon-step-backward');
+		$('#myicon').removeClass('glyphicon-step-forward');
+		state = 0;
+	}
 	$('.scoreboard').toggle(500);
 }
 
 function resetGame(){
+	var vals = document.getElementById('numberPlayers').value;
 	$('#skoar').empty();
-	alert(val);
-	var vals = $('#numberPlayers').val();
 	numberOfPlayers = vals;
 	restart();
 	setup();
@@ -43,18 +52,22 @@ function resetGame(){
 
 }
 
+function selection(num){
+	if( num== numberOfPlayers) return "selected";
+	else return "";
+}
 function setUpScores ()
 {
 	$('#skoar').empty();
-	$('#skoar').append("<tr><td style='padding: 0px;'>\
-		<select onchange='resetGame();' id='numberPlayers'\
-		style='width:100%;'>\
-		<option value='2' selected>2</option>\
-		<option value='3'>3</option>\
-		<option value='4'>4</option>\
-		</select></td></tr>");
+	$('#skoar').append('<tr><td style="height: 40px; padding: 0px;">\
+		<select onchange="resetGame();" id="numberPlayers"\
+		style="width:100%; height: 100%;">\
+		<option value="2"' + selection(2) + '>2</option>\
+		<option value="3"' + selection(3) + '>3</option>\
+		<option value="4"' + selection(4) + '>4</option>\
+		</select></td></tr>');
 
-	for(i = 0; i < nPlay; i ++){
+	for(i = 0; i < numberOfPlayers; i ++){
 		$('#skoar').append('<tr id="scoreboard-row-' + i + '">\
 			<td style="background-color : ' + colorDark[i] +'" id="scoreboard-score-' + i + '"> Player\
 			 ' + (i+1) + ' <br/><span style="font-size: 40px;"> ' + playerscore[i] + '</span></td></tr>');

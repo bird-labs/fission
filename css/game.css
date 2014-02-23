@@ -69,7 +69,8 @@ body{
 	font-family: 'Buxton Sketch', Calibri;
 	text-shadow: 2px 2px black;
 	font-size: 25px;
-	padding: 30px;
+	padding-left: 30px;
+	padding-right: 30px;
 }
 .toggleButton{
 	padding: auto;
