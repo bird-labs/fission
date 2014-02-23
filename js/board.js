@@ -48,7 +48,21 @@ function cellId(row,col){
 }
 
 function winner(turn){
-	alert(turn + " is the Winner!");
+	turna = getTurn() - 1;
+
+	$('#winModal').modal('show');
+	var msg =  $('#winnerMessage');
+	msg.empty();
+	msg.css({"text-align":"center"});
+	msg.append('\
+		<span style="font-family: showcard gothic; \
+		font-size: 30px;\
+		color: ' + colors[turna] + ';"\
+		>Player ' + (turna+1) + '</span>\
+		 <span style="font-family: Buxton Sketch; \
+		font-size: 30px;\
+		 color: white;">Wins!!</span>"\
+		');
 }
 
 function setVal(){
@@ -210,10 +224,10 @@ function jiggledown(id,mode,deg,ratio){
 function updateTurnColor(){
 	turna = getTurn() - 1;
 
-	$('.gameTable').animate({
+	/*$('.gameTable').animate({
 		"border-color":"" + colors[turna] + ""
 	},500);
-	$('.gameTable').css({
+	*/$('.gameTable').css({
 		"background-color":""+ colorBack[turna]+""
 	});
 }
@@ -226,7 +240,7 @@ function createCell(row , col){
 		'click',
 		function(){
 			incrementor(row,col);
-			jiggledown(cell,0,3,1.5);
+		//	jiggledown(cell,0,3,1.5);
 		},
 		false);
 /*	 document.getElementById(cell).
@@ -244,7 +258,7 @@ function createRow(row){
 }
 
 function setUpBoard(){
-	$('#gameConsole').append('<table cellspacing="4" id="gameBoard" class="gameTable">');
+	$('#gameConsole').append('<table cellspacing="0" id="gameBoard" class="gameTable">');
 	$('#gameConsole').append('</table>');
 
 	for(var i = 0; i < nrow ; i ++){

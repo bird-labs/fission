@@ -61,9 +61,10 @@ function incrementor (i,j){
 
 	if ((player[i][j] == turn) || (player[i][j] == 0)){
 		increment(i,j);
-		changeTurn();
 		clicks++;
 		if (clicks >= 2) didWin();
+		changeTurn();
+		
 	}
 	else return;
 }
@@ -99,7 +100,7 @@ function increment (i, j) {
 	{
 		if (board[i][j] == 1) 
 			{
-				sleep(100);
+				//sleep(100);
 				blast(i,j);
 			}
 		else board[i][j] = 1;
@@ -108,7 +109,7 @@ function increment (i, j) {
 	{
 		if (board[i][j] == 2)
 		{
-			sleep(100); 
+			//sleep(100); 
 			blast(i,j);
 		}
 		else board[i][j]++;
@@ -117,7 +118,7 @@ function increment (i, j) {
 	{
 		if (board[i][j] == 3)
 		{
-			sleep(100);
+			//sleep(100);
 			blast(i,j);
 		}
 		else board[i][j]++;	
@@ -144,12 +145,12 @@ function sleep(miliseconds) {
 function blast (i,j) {
 
 	// setTimeout(function(){
-	document.getElementById(cellId(i,j)).style.backgroundColor='rgb(30,30,30)';
+	/*document.getElementById(cellId(i,j)).style.backgroundColor='rgb(30,30,30)';
 	document.getElementById(cellId(i+1,j)).style.backgroundColor='rgb(60,60,60)';
 	document.getElementById(cellId(i,j+1)).style.backgroundColor='rgb(60,60,60)';
 	document.getElementById(cellId(i-1,j)).style.backgroundColor='rgb(60,60,60)';
 	document.getElementById(cellId(i,j-1)).style.backgroundColor='rgb(60,60,60)';
-	
+	*/
 	if (i == 0 && j == 0)
 	{
 		board[i][j] = 0;

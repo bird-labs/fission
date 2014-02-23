@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="css/game.css">
 	<script type="text/javascript" src="js/jquery.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/game.css">
+
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<script type="text/javascript" src="js/bootstrap.js"></script>
+
 	<script type="text/javascript" src="js/play.js"></script>
 	<script type="text/javascript" src="js/board.js"></script>
+
 </head>
 
 <body>
@@ -12,6 +17,21 @@
 	<div id="gameConsole" class="gameConsole">
 
 	</div>
+
+<div class="modal fade mymodal" id="winModal" role="dialog" aria-hidden="true">
+  <div class="modal-dialog mymodal">
+    <div class="modal-content mymodal" style="background-color: rgb(40,40,40);">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <div class="modal-body myBrand" style="font-family: 'Buxton Sketch';">
+		<span id="winnerMessage">
+		</span>
+      </div>
+     <div class="modal-footer" style="bottom:0px;">    
+     </div>
+    </div></div>
+</div>
 	<!-- <button onclick="setVal()">GET PLAYER VALUE</button> -->
 </body>
 </html>
