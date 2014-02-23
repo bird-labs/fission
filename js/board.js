@@ -5,23 +5,22 @@ var size;
 var nPlay = getPlayers();
 jiggleTime = 100;
 var playerscore = new Array(nPlay);
-for (var i = 0; i < nPlay; i++)
-{
-	playerscore[i] = 0;
-}
+
 //red green yellow blue
 var colors = ["#FF0000","#22B14C","#FFC90E","#00A2E8"];
 var colorDark = ["#880015","#0E4B20","#D37B03","#006F9D"];
 var colorBack = ["#8F0C12","#115726","#D2B402","#00618A"];
 
 $(function(){
+	$('#gameConsole').append('<table id="skoar" class="scoreboard"></table>');
 	setup();
+	
 	setTimeout(
 		function(){
 			$('#logoBoard').fadeOut();
 		},1300);
-	setUpBoard();
 	setUpScores();
+	setUpBoard();
 	$('.scoreboard').hide(0);
 	setUpCredentials();
 	$('.gameTable').css({
@@ -33,12 +32,32 @@ function ToggleScoreBoard(){
 	$('.scoreboard').toggle(500);
 }
 
+function resetGame(){
+	$('#skoar').empty();
+	alert(val);
+	var vals = $('#numberPlayers').val();
+	numberOfPlayers = vals;
+	restart();
+	setup();
+	setUpScores();
+
+}
+
 function setUpScores ()
 {
-	$('#gameConsole').append('<table id="skoar" class="scoreboard"></table>');
+	$('#skoar').empty();
+	$('#skoar').append("<tr><td style='padding: 0px;'>\
+		<select onchange='resetGame();' id='numberPlayers'\
+		style='width:100%;'>\
+		<option value='2' selected>2</option>\
+		<option value='3'>3</option>\
+		<option value='4'>4</option>\
+		</select></td></tr>");
+
 	for(i = 0; i < nPlay; i ++){
 		$('#skoar').append('<tr id="scoreboard-row-' + i + '">\
-			<td style="background-color : ' + colorDark[i] +'" id="scoreboard-score-' + i + '"> Player ' + (i+1) + ' <br/><span style="font-size: 40px;"> ' + playerscore[i] + '</span></td></tr>');
+			<td style="background-color : ' + colorDark[i] +'" id="scoreboard-score-' + i + '"> Player\
+			 ' + (i+1) + ' <br/><span style="font-size: 40px;"> ' + playerscore[i] + '</span></td></tr>');
 	}
 }
 

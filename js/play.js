@@ -2,7 +2,7 @@ var nrow = 9;
 var ncol = 6;
 var turn = 1;
 var clicks = 0;
-var numberOfPlayers = 4	;
+var numberOfPlayers = 2	;
 var board = new Array(nrow);
 var player = new Array(nrow);
 var updated = new Array(nrow);
@@ -15,6 +15,11 @@ function getPlayers(){
 }
 
 function setup(){
+	for (var i = 0; i < numberOfPlayers; i++)
+	{
+	playerscore[i] = 0;
+	}
+	setUpScores();
 	for (var i = 0; i < nrow; i++) 
 	{
 		board[i] = new Array(ncol);
@@ -60,9 +65,10 @@ function restart(){
 			player[i][j] = 0;
 			updated[i][j] = 0;
 			laststate[i][j] = 0;
-			refreshScores();
+			
 			updateCell(i,j,0);
 	}}
+	refreshScores();
 }
 
 function didWin(){
