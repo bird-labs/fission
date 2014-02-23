@@ -4,9 +4,9 @@ var turna = 0;
 var size;
 jiggleTime = 100;
 
-var colors = ["#FF0000","#22B14C","yellow"];
-var colorDark = ["#880015","#0E4B20","yellow"];
-var colorBack = ["#8F0C12","#115726","yellow"]
+var colors = ["#FF0000","#22B14C","#FFC90E"];
+var colorDark = ["#880015","#0E4B20","#D37B03"];
+var colorBack = ["#8F0C12","#115726","#D2B402"]
 
 $(function(){
 	setTimeout(
@@ -88,7 +88,7 @@ function updateCell(row,col,state){
 		$(cell).css({
 				"background-color":"rgb(30,30,30)"
 		});
-		rotateAround('svg-' + celli + '-1',0,1);
+		//rotateAround('svg-' + celli + '-1',0,1);
 	}
 	if(state == 2){
 		$(cell).append('\
@@ -100,15 +100,15 @@ function updateCell(row,col,state){
 			<stop offset="100%" style="stop-color:' + colorDark[turna] + ';stop-opacity:1" />\
 			</linearGradient>\
 			</defs>\
-			<circle cx="25%" cy="50%" r="20%" stroke="url(#grad-'+celli+'-2)"\
+			<circle cx="35%" cy="50%" r="20%" stroke="url(#grad-'+celli+'-2)"\
 			stroke-width="1" fill="url(#grad-'+celli+'-2)" /> \
-			<circle cx="75%" cy="50%" r="20%" stroke="url(#grad-'+celli+'-2)"\
+			<circle cx="65%" cy="50%" r="21%" stroke="url(#grad-'+celli+'-2)"\
 			stroke-width="1" fill="url(#grad-'+celli+'-2)" /> \
 			</svg>');
 		$(cell).css({
 				"background-color":"rgb(30,30,30)"
 		});
-		rotateAround('svg-' + celli + '-2',0,4,2);
+		//rotateAround('svg-' + celli + '-2',0,4,2);
 	}
 	if(state == 3){
 		$(cell).append('\
@@ -120,17 +120,17 @@ function updateCell(row,col,state){
 			<stop offset="100%" style="stop-color:' + colorDark[turna] + ';stop-opacity:1" />\
 			</linearGradient>\
 			</defs>\
-			<circle cx="50%" cy="30%" r="15%" stroke="url(#grad-'+celli+'-3)"\
+			<circle cx="50%" cy="37%" r="15%" stroke="url(#grad-'+celli+'-3)"\
 			stroke-width="1" fill="url(#grad-'+celli+'-3)" /> \
-			<circle cx="30%" cy="64.64%" r="15%" stroke="url(#grad-'+celli+'-3)"\
+			<circle cx="36%" cy="62%" r="16%" stroke="url(#grad-'+celli+'-3)"\
 			stroke-width="1" fill="url(#grad-'+celli+'-3)" /> \
-			<circle cx="70%" cy="64.64%" r="15%" stroke="url(#grad-'+celli+'-3)"\
+			<circle cx="64%" cy="62.5%" r="17%" stroke="url(#grad-'+celli+'-3)"\
 			stroke-width="1" fill="url(#grad-'+celli+'-3)" /> \
 			</svg>');
 		$(cell).css({
 				"background-color":"rgb(30,30,30)"
 		});
-		rotateAround('svg-' + celli + '-3',0,8,3);
+		//rotateAround('svg-' + celli + '-3',0,8,3);
 	}
 }
 
@@ -210,9 +210,9 @@ function jiggledown(id,mode,deg,ratio){
 function updateTurnColor(){
 	turna = getTurn() - 1;
 
-	$('.gameTable').css({
+	$('.gameTable').animate({
 		"border-color":"" + colors[turna] + ""
-	});
+	},500);
 	$('.gameTable').css({
 		"background-color":""+ colorBack[turna]+""
 	});
