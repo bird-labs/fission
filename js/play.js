@@ -7,28 +7,60 @@ var board = new Array(nrow);
 var player = new Array(nrow);
 var updated = new Array(nrow);
 var laststate = new Array(nrow);
+var switchOnRotate = true;
+var peiceScore;
 
-for (var i = 0; i < nrow; i++) 
-{
-	board[i] = new Array(ncol);
-	player[i] = new Array(ncol);
-	updated[i] = new Array(ncol);
-	laststate[i] = new Array(ncol);
-}
-
-for (var i = 0; i < nrow; i++)
-{
-	for (var j = 0; j < ncol; j++)
+function setup(){
+	for (var i = 0; i < nrow; i++) 
 	{
-		board[i][j] = 0;
-		player[i][j] = 0;
-		updated[i][j] = 0;
-		laststate[i][j] = 0;
+		board[i] = new Array(ncol);
+		player[i] = new Array(ncol);
+		updated[i] = new Array(ncol);
+		laststate[i] = new Array(ncol);
+	}	
+	for (var i = 0; i < nrow; i++)
+	{
+		for (var j = 0; j < ncol; j++)
+		{
+			board[i][j] = 0;
+			player[i][j] = 0;
+			updated[i][j] = 0;
+			laststate[i][j] = 0;
+		}
 	}
 }
 
-function didWin()
-{
+function score(){
+	peiceScore = 0;
+	for (var i = 0; i < nrow; i++){
+		for (var j = 0; j < ncol; j++){
+			peiceScore += board[i][j]*board[i][j];
+	}}
+	//peiceScore -= clicks;
+	//if(peiceScore < 0) peiceScore = 0;
+	peiceScore += 100;
+	if(peiceScore <= 100) return 0;
+	else if(peiceScore <= 120) return 1;
+	else if(peiceScore <= 140) return 2;
+	else if(peiceScore <= 170) return 3;
+}
+
+function restart(){
+	turn = 1;
+	updateTurnColor();
+	clicks = 0;
+	for (var i = 0; i < nrow; i++){
+		for (var j = 0; j < ncol; j++){
+			board[i][j] = 0;
+			player[i][j] = 0;
+			updated[i][j] = 0;
+			laststate[i][j] = 0;
+			
+			updateCell(i,j,0);
+	}}
+}
+
+function didWin(){
 var found = new Array();
 for(var i = 0; i <= numberOfPlayers ; i ++) found[i] = false;
 
@@ -36,7 +68,6 @@ for(var i = 0; i <= numberOfPlayers ; i ++) found[i] = false;
 		for (var j = 0; j < ncol; j++){
 			found[player[i][j]] = true;
 	}}
-
 var win = 0, count = 0;
 for(var i = 1; i <= numberOfPlayers ; i ++) {
 	if(found[i]) {
@@ -53,25 +84,14 @@ function incrementor (i,j){
 		for (var b = 0; b < ncol; b++){
 			updated[a][b] = 0;
 			laststate[a][b] = board[a][b];
-		}
-	}
-
+	}}
 	if ((player[i][j] == turn) || (player[i][j] == 0)){
 		increment(i,j);
 		clicks++;
 		if (clicks >= 2) didWin();
 		changeTurn();
-		
 	}
-	else {
-		id = cellId(i,j);
-		var ele = $('#' + id);
-		ele.css({
-			"background-color":"rgb(45,45,45)"
-		});
-		jiggledown(id,0,6,1.4);
-		return;
-	}
+	else return;
 }
 
 function activateRotate(){
@@ -82,7 +102,7 @@ function activateRotate(){
 
 			if(updated[i][j] == 1 && player[i][j] != 0){
 				updateCell(i, j, board[i][j]);
-				if(laststate[i][j] != board[i][j])
+				if(switchOnRotate && laststate[i][j] != board[i][j])
 					rotateAround('svg-' + cellId(i,j) + '-' + board[i][j],0,board[i][j]+2,board[i][j]);
 	}}}
 }
@@ -104,31 +124,21 @@ function increment (i, j) {
 	if ((i == 0 && j == 0) || (i == 0 && j == (ncol - 1)) || (i == (nrow - 1) && j == 0) || (i == (nrow - 1) && j == (ncol - 1)))
 	{
 		if (board[i][j] == 1) 
-			{
-				//sleep(100);
-				blast(i,j);
-			}
+			blast(i,j);
 		else board[i][j] = 1;
 	}
 	else if (j == 0 || i == 0 || j == (ncol - 1) || i == (nrow - 1))  
 	{
 		if (board[i][j] == 2)
-		{
-			//sleep(100); 
-			blast(i,j);
-		}
+		blast(i,j);
 		else board[i][j]++;
 	}
 	else
 	{
 		if (board[i][j] == 3)
-		{
-			//sleep(100);
-			blast(i,j);
-		}
+		blast(i,j);
 		else board[i][j]++;	
 	}
-	
 }
 
 function sleep(ms) {
@@ -149,18 +159,8 @@ function mysleep(miliseconds) {
 }
 
 function blast (i,j) {
-
-	// setTimeout(function(){
 	document.getElementById(cellId(i,j)).style.backgroundColor='rgb(30,30,30)';
 	
-	if(i != nrow-1) document.getElementById(cellId(i+1,j)).style.backgroundColor='rgb(60,60,60)';
-	if(j != ncol-1) document.getElementById(cellId(i,j+1)).style.backgroundColor='rgb(60,60,60)';
-	if(i != 0) document.getElementById(cellId(i-1,j)).style.backgroundColor='rgb(60,60,60)';
-	if(j != 0) document.getElementById(cellId(i,j-1)).style.backgroundColor='rgb(60,60,60)';
-	
-
-	mysleep(500);
-
 	if (i == 0 && j == 0)
 	{
 		board[i][j] = 0;
@@ -189,7 +189,6 @@ function blast (i,j) {
 		increment((nrow - 1), (ncol - 2));
 		increment((nrow - 2), (ncol - 1));
 	}
-	//Side elements
 	else if (i == 0)
 	{
 		board[i][j] = 0;
@@ -222,7 +221,6 @@ function blast (i,j) {
 		increment(i, (j - 1));
 		increment((i - 1), j);
 	}
-	//All others
 	else
 	{
 		board[i][j] = 0;

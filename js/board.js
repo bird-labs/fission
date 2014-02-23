@@ -3,12 +3,12 @@ var ncol = 6;
 var turna = 0;
 var size;
 jiggleTime = 100;
-
 var colors = ["#FF0000","#22B14C","#FFC90E","#00A2E8"];
 var colorDark = ["#880015","#0E4B20","#D37B03","#006F9D"];
 var colorBack = ["#8F0C12","#115726","#D2B402","#00618A"];
 
 $(function(){
+	setup();
 	setTimeout(
 		function(){
 			$('#logoBoard').fadeOut();
@@ -24,21 +24,15 @@ $(function(){
 function setUpCredentials(){
 	var totalWidth = window.innerWidth;
 	var totalHeight = window.innerHeight;
-	
-
 	$('.gameConsole').height(totalHeight);
 	$('.gameConsole').width(totalWidth);
-
 	$('#logoBoard').height(totalHeight);
 	$('#logoBoard').width(totalWidth);
-
 	var cellWidth = (totalWidth - 4*ncol)/ncol;
 	var cellHeight = (totalHeight - 4*nrow - 10)/nrow;
-
 	size = 0;
 	if(cellHeight <= cellWidth) size = cellHeight;
 	if(cellHeight > cellWidth) size = cellWidth;
-
 	$('.gameCell').height(size);
 	$('.gameCell').width(size);
 }
@@ -48,9 +42,8 @@ function cellId(row,col){
 }
 
 function winner(turn){
+	var scored = score();
 	turna = getTurn() - 1;
-
-	$('#winModal').modal('show');
 	var msg =  $('#winnerMessage');
 	msg.empty();
 	msg.css({"text-align":"center"});
@@ -63,29 +56,40 @@ function winner(turn){
 		font-size: 30px;\
 		 color: white;">&nbsp;Wins!!</span>"\
 		');
+
+	document.getElementById('star1').style.color = "rgb(50,50,50)";
+	document.getElementById('star2').style.color = "rgb(50,50,50)";
+	document.getElementById('star3').style.color = "rgb(50,50,50)";
+
+	if(scored > 0) document.getElementById('star1').style.color = "#FFC90E";
+	if(scored > 1) document.getElementById('star2').style.color = "#FFC90E";
+	if(scored > 2) document.getElementById('star3').style.color = "#FFC90E";
+
+	$('#winModal').modal('show');
+
+	$('#Score').empty();
+	$('#Score').append(peiceScore);
+
+	setTimeout(restart,500);
 }
 
 function setVal(){
 	for(var i = 0 ; i < nrow ; i ++ ){
 		for(var j = 0 ; j < ncol ; j ++ ){
 			$('#' + cellId(i,j)).append(getPlayer(i,j));	
-		}	
-	}
+	}}
 }
 
 function updateCell(row,col,state){
-
 	var cell = '#' + cellId(row,col);
 	var celli = cellId(row,col);
 	turna = getTurn() - 1;
-	$(cell).empty()
-	
+	$(cell).empty();	
 	if(state == 0){
 		$(cell).css({
 				"background-color":"rgb(30,30,30)"
 		});
-		}
-
+	}
 	if(state == 1){
 		$(cell).append('\
 			<svg  id="svg-' + celli + '-1" style="text-align:center; vertical-align:middle;\
@@ -102,7 +106,6 @@ function updateCell(row,col,state){
 		$(cell).css({
 				"background-color":"rgb(30,30,30)"
 		});
-		//rotateAround('svg-' + celli + '-1',0,1);
 	}
 	if(state == 2){
 		$(cell).append('\
@@ -122,7 +125,6 @@ function updateCell(row,col,state){
 		$(cell).css({
 				"background-color":"rgb(30,30,30)"
 		});
-		//rotateAround('svg-' + celli + '-2',0,4,2);
 	}
 	if(state == 3){
 		$(cell).append('\
@@ -144,12 +146,11 @@ function updateCell(row,col,state){
 		$(cell).css({
 				"background-color":"rgb(30,30,30)"
 		});
-		//rotateAround('svg-' + celli + '-3',0,8,3);
 	}
 }
 
 function rotateAround(id, deg,delta,revs){
-	if(deg> revs*360) return;//deg -= 360;
+	if(deg> revs*360) return;
 	var ele = $('#' + id);
 	if(ele == undefined || ele == null) return;
 	ele.css({
@@ -166,8 +167,7 @@ function parseId(id , data){
 	if(data = "row"){
 		rowL = secondDash - firstDash - 1;
 		return id.substr(firstDash + 1, rowL);
-	}
-	
+	}	
 	else{
 		colL = id.length - secondDash - 1;
 		return id.substr(secondDash + 1, colL);
@@ -184,7 +184,6 @@ function jiggleup(id,mode,deg,ratio){
 		setTimeout(function(){ele.css({
 			"transform": "rotate(-" + deg + "deg)"
 		});},jiggleTime/2);
-
 		setTimeout(function(){jiggleup(id,1,deg,ratio);},jiggleTime);
 	}
 	if(mode == 1){
@@ -200,7 +199,6 @@ function jiggleup(id,mode,deg,ratio){
 
 function jiggledown(id,mode,deg,ratio){
 	var ele = $('#' + id);
-//	ele.css({"background-color":"" + colorBack[turna]});
 	if(deg < 0.5){
 		ele.css({"background-color":"rgb(30,30,30)"});
 	 return;
@@ -227,16 +225,10 @@ function jiggledown(id,mode,deg,ratio){
 
 function updateTurnColor(){
 	turna = getTurn() - 1;
-
-	/*$('.gameTable').animate({
-		"border-color":"" + colors[turna] + ""
-	},500);*/
-
 	$('.gameRow').css({
 		"border-left":"10px solid " + colorBack[turna] + "",
 		"border-right":"10px solid " + colorBack[turna] + ""
 	});
-
 }
 	
 function createCell(row , col){
@@ -246,9 +238,7 @@ function createCell(row , col){
 	elem.addEventListener(
 		'click',
 		function(){
-			//elem.style.backgroundColor = "rgb(50,50,50)";
 			incrementor(row,col);
-			//elem.style.backgroundColor = "rgb(30,30,30)";
 		},
 		false);
 }
@@ -256,7 +246,6 @@ function createCell(row , col){
 function createRow(row){
 	$('#gameBoard').append('<tr id="row-' + row + '" class="gameRow">');
 	$('#gameBoard').append('</tr>');
-
 	var i = 0;	
 	for(i = 0; i < ncol ; i ++){
 		createCell(row,i);
@@ -266,10 +255,7 @@ function createRow(row){
 function setUpBoard(){
 	$('#gameConsole').append('<table cellspacing="0" id="gameBoard" class="gameTable">');
 	$('#gameConsole').append('</table>');
-
 	for(var i = 0; i < nrow ; i ++){
 		createRow(i);
 	}
-	
-	
 }
