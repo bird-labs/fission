@@ -61,7 +61,7 @@ function winner(turn){
 		>Player ' + (turna+1) + '</span>\
 		 <span style="font-family: Buxton Sketch; \
 		font-size: 30px;\
-		 color: white;">Wins!!</span>"\
+		 color: white;">&nbsp;Wins!!</span>"\
 		');
 }
 
