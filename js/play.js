@@ -2,7 +2,7 @@ var nrow = 9;
 var ncol = 6;
 var turn = 1;
 var clicks = 0;
-var numberOfPlayers = 2;
+var numberOfPlayers = 2	;
 var board = new Array(nrow);
 var player = new Array(nrow);
 var updated = new Array(nrow);
@@ -32,13 +32,10 @@ function didWin()
 var found = new Array();
 for(var i = 0; i <= numberOfPlayers ; i ++) found[i] = false;
 
-	for (var i = 0; i < nrow; i++)
-	{
-		for (var j = 0; j < ncol; j++)
-		{
+	for (var i = 0; i < nrow; i++){
+		for (var j = 0; j < ncol; j++){
 			found[player[i][j]] = true;
-		}
-	}
+	}}
 
 var win = 0, count = 0;
 for(var i = 1; i <= numberOfPlayers ; i ++) {
