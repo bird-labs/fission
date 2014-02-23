@@ -22,18 +22,23 @@ $(function(){
 		},1300);
 	setUpBoard();
 	setUpScores();
+	$('.scoreboard').hide(0);
 	setUpCredentials();
 	$('.gameTable').css({
 		"overflow":"hidden"
 	});
 	updateTurnColor();
 });
+function ToggleScoreBoard(){
+	$('.scoreboard').toggle(500);
+}
 
 function setUpScores ()
 {
 	$('#gameConsole').append('<table id="skoar" class="scoreboard"></table>');
 	for(i = 0; i < nPlay; i ++){
-		$('#skoar').append('<tr id="scoreboard-row-' + i + '"><td id="scoreboard-score-' + i + '"> Player ' + (i+1) + ': ' + playerscore[i] + '</td></tr>');
+		$('#skoar').append('<tr id="scoreboard-row-' + i + '">\
+			<td style="background-color : ' + colorDark[i] +'" id="scoreboard-score-' + i + '"> Player ' + (i+1) + ' <br/><span style="font-size: 40px;"> ' + playerscore[i] + '</span></td></tr>');
 	}
 }
 
@@ -50,7 +55,7 @@ function setUpCredentials(){
 	$('.gameConsole').width(totalWidth);
 	$('#logoBoard').height(totalHeight);
 	$('#logoBoard').width(totalWidth);
-	var cellWidth = (totalWidth - 4*ncol)/ncol;
+	var cellWidth = (totalWidth - 4*ncol - 30)/ncol;
 	var cellHeight = (totalHeight - 4*nrow - 10)/nrow;
 	size = 0;
 	if(cellHeight <= cellWidth) size = cellHeight;

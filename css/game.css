@@ -55,16 +55,38 @@ body{
 
 .scoreboard
 {
+	overflow: scroll;
 	position: fixed;
-	right: 0;
-	top: 0;
+	right: 20px;
+	top: 0px;
 	height: 100%;
+	border-left: 2px rgb(40,40,40) solid;
 	background-color: rgb(10,10,10);
 	text-align: center;
 	color: white;
 }
 .scoreboard td{
-	font-family: Buxton Sketch, Calibri;
+	font-family: 'Buxton Sketch', Calibri;
+	text-shadow: 2px 2px black;
 	font-size: 25px;
 	padding: 30px;
+}
+.toggleButton{
+	padding: auto;
+	vertical-align: middle;
+	text-align: center;
+	font-weight: bold;
+	font-size: 30px;
+	text-shadow: 1px 1px black;
+	color: rgb(200,200,200);
+	position:fixed; 
+	right: 0px; 
+	top: 0px; 
+	width:30px; 
+	background-color: rgb(70,70,70); 
+	height:100%;
+}
+.toggleButton:hover{
+	background-color: rgb(120,120,120);
+	-webkit-transform: scale(1.2,1);
 }
