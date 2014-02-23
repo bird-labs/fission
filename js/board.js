@@ -259,19 +259,22 @@ function jiggledown(id,mode,deg,ratio){
 
 function updateTurnColor(){
 	turna = getTurn() - 1;
+	$('.toggleButton').css({
+		'background-color':''+colorDark[turna]
+	});
 	$('.gameRow').css({
-		"border-left":"10px solid " + colorBack[turna] + "",
-		"border-right":"10px solid " + colorBack[turna] + ""
+		"border-left":"10px solid " + colorDark[turna] + "",
+		"border-right":"10px solid " + colorDark[turna] + ""
 	});
 	$('#row-0').css({
-		"border-top":"10px solid " + colorBack[turna] + "",
-		"border-left":"10px solid " + colorBack[turna] + "",
-		"border-right":"10px solid " + colorBack[turna] + ""
+		"border-top":"10px solid " + colorDark[turna] + "",
+		"border-left":"10px solid " + colorDark[turna] + "",
+		"border-right":"10px solid " + colorDark[turna] + ""
 	});
 	$('#row-'+ (nrow - 1)).css({
-		"border-bottom":"10px solid " + colorBack[turna] + "",
-		"border-left":"10px solid " + colorBack[turna] + "",
-		"border-right":"10px solid " + colorBack[turna] + ""
+		"border-bottom":"10px solid " + colorDark[turna] + "",
+		"border-left":"10px solid " + colorDark[turna] + "",
+		"border-right":"10px solid " + colorDark[turna] + ""
 	});
 }
 	

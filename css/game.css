@@ -86,7 +86,3 @@ body{
 	background-color: rgb(70,70,70); 
 	height:100%;
 }
-.toggleButton:hover{
-	background-color: rgb(120,120,120);
-	-webkit-transform: scale(1.2,1);
-}
