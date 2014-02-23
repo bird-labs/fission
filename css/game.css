@@ -8,15 +8,14 @@ body{
 #winModal{
 	text-align: center;
 	vertical-align: middle;
-	width: 50%;
-	height: 50%;
-	overflow: hidden;
+	width: 100%;
+	height: 100%;
+	overflow: scroll;
 	margin: auto;
 }
 .gameConsole{
 	padding-top: 5px;
 	width: 100%;
-	/*background-color: rgb(60,60,60);*/
 	background:url(../images/3.png);
 	text-align: center;
 }
