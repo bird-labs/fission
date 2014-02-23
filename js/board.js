@@ -1,9 +1,7 @@
-var nrow = 9;
-var ncol = 6;
 var turna = 0;
 var size; var state = 0;
 var nPlay = getPlayers();
-jiggleTime = 100;
+var jiggleTime = 100;
 var playerscore = new Array(nPlay);
 
 //red green yellow blue
@@ -12,6 +10,7 @@ var colorDark = ["#880015","#0E4B20","#D37B03","#006F9D"];
 var colorBack = ["#8F0C12","#115726","#D2B402","#00618A"];
 
 $(function(){
+	checkBoardSize();
 	$('#gameConsole').append('<table id="skoar" class="scoreboard"></table>');
 	setup();
 	
@@ -28,15 +27,39 @@ $(function(){
 	});
 	updateTurnColor();
 });
+function checkBoardSize(){
+	var totalWidth = window.innerWidth - 30;
+	var totalHeight = window.innerHeight - 10;
+	
+	var trueRatio = totalWidth/totalHeight;
+	var minimumDif = 10000;
+	var minimumIdr = 0;
+	var minimumIdc = 0;
+	var rowArr = [1,2,3,4,5,6,7,8,9,10];
+	var colArr = [1,2,3,4,5,6,7,8,9,10];
+	for(var i = 0 ; i < rowArr.length ; i++){
+		for(var j = 0 ; j < rowArr.length ; j++){
+			if( Math.abs(colArr[i]/rowArr[j] - trueRatio) <= minimumDif){
+				minimumDif = Math.abs(colArr[i]/rowArr[j] - trueRatio);
+				minimumIdc = colArr[i];
+				minimumIdr = rowArr[j];
+			}
+		}
+	}
+	ncol = minimumIdc;
+	nrow = minimumIdr;
+}
 function ToggleScoreBoard(){
 	if(state == 0){
-		$('#myicon').removeClass('glyphicon-step-backward');
-		$('#myicon').addClass('glyphicon-step-forward');
+		$('#myicon').removeClass('glyphicon-cog');
+		$('.toggleButton').css({"height":"100%"});
+		$('#myicon').addClass('glyphicon-play');
 		state = 1;
 	}
 	else{
-		$('#myicon').addClass('glyphicon-step-backward');
-		$('#myicon').removeClass('glyphicon-step-forward');
+		$('#myicon').addClass('glyphicon-cog');
+		$('.toggleButton').css({"height":"25px"});
+		$('#myicon').removeClass('glyphicon-play');
 		state = 0;
 	}
 	$('.scoreboard').toggle(500);
@@ -87,7 +110,7 @@ function setUpCredentials(){
 	$('.gameConsole').width(totalWidth);
 	$('#logoBoard').height(totalHeight);
 	$('#logoBoard').width(totalWidth);
-	var cellWidth = (totalWidth - 4*ncol - 40)/ncol;
+	var cellWidth = (totalWidth - 4*ncol - 30)/ncol;
 	var cellHeight = (totalHeight - 4*nrow - 10)/nrow;
 	size = 0;
 	if(cellHeight <= cellWidth) size = cellHeight;
@@ -156,7 +179,7 @@ function updateCell(row,col,state){
 	}
 	if(state == 1){
 		$(cell).append('\
-			<svg  id="svg-' + celli + '-1" style="text-align:center; vertical-align:middle;\
+			<svg  id="svg-' + celli + '-1" style="z-index:99; text-align:center; vertical-align:middle;\
 			height:'+size+'px; width:'+size+'px;"> \
 			<defs>\
 			<linearGradient id="grad-'+celli+'-1" x1="0%" y1="0%" x2="100%" y2="0%">\
@@ -173,7 +196,7 @@ function updateCell(row,col,state){
 	}
 	if(state == 2){
 		$(cell).append('\
-			<svg  id="svg-' + celli + '-2" style="text-align:center; vertical-align:middle;\
+			<svg  id="svg-' + celli + '-2" style="z-index:99; text-align:center; vertical-align:middle;\
 			height:'+size+'px; width:'+size+'px;"> \
 			<defs>\
 			<linearGradient id="grad-'+celli+'-2" x1="0%" y1="0%" x2="100%" y2="0%">\
@@ -192,7 +215,7 @@ function updateCell(row,col,state){
 	}
 	if(state == 3){
 		$(cell).append('\
-			<svg id="svg-' + celli + '-3" style="text-align:center; vertical-align:middle;\
+			<svg id="svg-' + celli + '-3" style="z-index:99; text-align:center; vertical-align:middle;\
 			height:'+size+'px; width:'+size+'px;"> \
 			<defs>\
 			<linearGradient id="grad-'+celli+'-3" x1="0%" y1="0%" x2="100%" y2="0%">\
@@ -294,7 +317,7 @@ function updateTurnColor(){
 	$('.toggleButton').css({
 		'background-color':''+colorDark[turna]
 	});
-	$('.gameRow').css({
+/*	$('.gameRow').css({
 		"border-left":"10px solid " + colorDark[turna] + "",
 		"border-right":"10px solid " + colorDark[turna] + ""
 	});
@@ -307,7 +330,7 @@ function updateTurnColor(){
 		"border-bottom":"10px solid " + colorDark[turna] + "",
 		"border-left":"10px solid " + colorDark[turna] + "",
 		"border-right":"10px solid " + colorDark[turna] + ""
-	});
+	});*/
 }
 	
 function createCell(row , col){

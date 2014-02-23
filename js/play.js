@@ -19,6 +19,7 @@ function setup(){
 	{
 	playerscore[i] = 0;
 	}
+	setUpScores();
 	for (var i = 0; i < nrow; i++) 
 	{
 		board[i] = new Array(ncol);
@@ -113,7 +114,7 @@ function activateRotate(){
 			if(updated[i][j] == 1 && player[i][j] != 0){
 				updateCell(i, j, board[i][j]);
 				if(switchOnRotate && laststate[i][j] != board[i][j] && board[i][j]!=1)
-					rotateAround('svg-' + cellId(i,j) + '-' + board[i][j],0,board[i][j]+2,100+board[i][j]);
+					rotateAround('svg-' + cellId(i,j) + '-' + board[i][j],0,board[i][j]+2,Math.random()+0.2);
 	}}}
 }
 
