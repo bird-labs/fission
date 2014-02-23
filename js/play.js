@@ -42,7 +42,7 @@ function score(){
 	if(peiceScore <= 100) return 0;
 	else if(peiceScore <= 120) return 1;
 	else if(peiceScore <= 140) return 2;
-	else if(peiceScore <= 170) return 3;
+	else return 3;
 }
 
 function restart(){

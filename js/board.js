@@ -12,7 +12,7 @@ $(function(){
 	setTimeout(
 		function(){
 			$('#logoBoard').fadeOut();
-		},100);
+		},1300);
 	setUpBoard();
 	setUpCredentials();
 	$('.gameTable').css({
