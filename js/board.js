@@ -274,6 +274,7 @@ function createCell(row , col){
 	elem.addEventListener(
 		'click',
 		function(){
+			// document.getElementById('clip').play();
 			incrementor(row,col);
 		},
 		false);
