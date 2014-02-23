@@ -32,8 +32,8 @@ function setUpCredentials(){
 	$('#logoBoard').height(totalHeight);
 	$('#logoBoard').width(totalWidth);
 
-	var cellWidth = (totalWidth - 12*ncol)/ncol;
-	var cellHeight = (totalHeight - 12*nrow - 12)/nrow;
+	var cellWidth = (totalWidth - 4*ncol)/ncol;
+	var cellHeight = (totalHeight - 4*nrow)/nrow;
 
 	size = 0;
 	if(cellHeight <= cellWidth) size = cellHeight;
@@ -89,7 +89,7 @@ function updateCell(row,col,state){
 	if(state == 1){
 		$(cell).append('\
 			<svg  id="svg-' + celli + '-1" style="text-align:center; vertical-align:middle;\
-			height:90%; width: 90%;"> \
+			height:'+size+'px; width:'+size+'px;"> \
 			<defs>\
 			<linearGradient id="grad-'+celli+'-1" x1="0%" y1="0%" x2="100%" y2="0%">\
 			<stop offset="0%" style="stop-color:' + colors[turna] + ';stop-opacity:1" />\
@@ -107,7 +107,7 @@ function updateCell(row,col,state){
 	if(state == 2){
 		$(cell).append('\
 			<svg  id="svg-' + celli + '-2" style="text-align:center; vertical-align:middle;\
-			height:90%; width: 90%;"> \
+			height:'+size+'px; width:'+size+'px;"> \
 			<defs>\
 			<linearGradient id="grad-'+celli+'-2" x1="0%" y1="0%" x2="100%" y2="0%">\
 			<stop offset="0%" style="stop-color:' + colors[turna] + ';stop-opacity:1" />\
@@ -127,7 +127,7 @@ function updateCell(row,col,state){
 	if(state == 3){
 		$(cell).append('\
 			<svg id="svg-' + celli + '-3" style="text-align:center; vertical-align:middle;\
-			height:90%; width: 90%;"> \
+			height:'+size+'px; width:'+size+'px;"> \
 			<defs>\
 			<linearGradient id="grad-'+celli+'-3" x1="0%" y1="0%" x2="100%" y2="0%">\
 			<stop offset="0%" style="stop-color:' + colors[turna] + ';stop-opacity:1" />\

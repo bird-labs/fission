@@ -24,7 +24,7 @@
 .gameTable{
 	table-layout: fixed;
 	margin: auto;
-	border: 5px solid rgb(129,81,54);
+	/*border: 5px solid rgb(129,81,54);*/
 	border-radius: 1px;
 	box-shadow: 2px 2px black;
 }
