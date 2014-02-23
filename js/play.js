@@ -10,6 +10,10 @@ var laststate = new Array(nrow);
 var switchOnRotate = true;
 var peiceScore;
 
+function getPlayers(){
+	return numberOfPlayers;
+}
+
 function setup(){
 	for (var i = 0; i < nrow; i++) 
 	{
@@ -48,6 +52,7 @@ function score(){
 function restart(){
 	turn = 1;
 	updateTurnColor();
+
 	clicks = 0;
 	for (var i = 0; i < nrow; i++){
 		for (var j = 0; j < ncol; j++){
@@ -55,7 +60,7 @@ function restart(){
 			player[i][j] = 0;
 			updated[i][j] = 0;
 			laststate[i][j] = 0;
-			
+			refreshScores();
 			updateCell(i,j,0);
 	}}
 }
@@ -148,7 +153,7 @@ function sleep(ms) {
 }
 
 function getPlayer (i, j) {
-	return player[i][j]
+	return player[i][j];
 }
 
 function mysleep(miliseconds) {

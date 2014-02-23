@@ -52,3 +52,13 @@ body{
 	border-left: 10px solid black;
 	
 }
+
+.scoreboard
+{
+	/*visibility: hidden;*/
+	right: 20%;
+	top: 50%;
+	position: fixed;
+	text-align: center;
+	color: white;
+}

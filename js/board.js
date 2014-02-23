@@ -2,7 +2,13 @@ var nrow = 9;
 var ncol = 6;
 var turna = 0;
 var size;
+var nPlay = getPlayers();
 jiggleTime = 100;
+var playerscore = new Array(nPlay);
+for (var i = 0; i < nPlay; i++)
+{
+	playerscore[i] = 0;
+}
 //red green yellow blue
 var colors = ["#FF0000","#22B14C","#FFC90E","#00A2E8"];
 var colorDark = ["#880015","#0E4B20","#D37B03","#006F9D"];
@@ -15,12 +21,24 @@ $(function(){
 			$('#logoBoard').fadeOut();
 		},1300);
 	setUpBoard();
+	setUpScores();
 	setUpCredentials();
 	$('.gameTable').css({
 		"overflow":"hidden"
 	});
 	updateTurnColor();
 });
+
+function setUpScores ()
+{
+	$('#gameConsole').append('<table id="skoar" class="scoreboard"><tr><td> Player 1: ' + playerscore[0] + '</td></tr><tr><td> Player 2: ' + playerscore[1] + '</td></tr></table>');
+}
+
+function refreshScores ()
+{
+	$('#skoar').empty();
+	setUpScores();
+}
 
 function setUpCredentials(){
 	var totalWidth = window.innerWidth;
@@ -42,9 +60,14 @@ function cellId(row,col){
 	return 'cell-' + row + '-' + col + '';
 }
 
+function playerinc(playernum, scorede){
+	playerscore[playernum] = playerscore[playernum] +  scorede;
+}
+
 function winner(turn){
 	var scored = score();
 	turna = getTurn() - 1;
+	playerinc((turna+1), peiceScore);
 	var msg =  $('#winnerMessage');
 	msg.empty();
 	msg.css({"text-align":"center"});
