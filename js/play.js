@@ -63,7 +63,15 @@ function incrementor (i,j){
 		changeTurn();
 		
 	}
-	else return;
+	else {
+		id = cellId(i,j);
+		var ele = $('#' + id);
+		ele.css({
+			"background-color":"rgb(45,45,45)"
+		});
+		jiggledown(id,0,6,1.4);
+		return;
+	}
 }
 
 function activateRotate(){
@@ -75,7 +83,7 @@ function activateRotate(){
 			if(updated[i][j] == 1 && player[i][j] != 0){
 				updateCell(i, j, board[i][j]);
 				if(laststate[i][j] != board[i][j])
-					rotateAround('svg-' + cellId(i,j) + '-' + board[i][j],0,3,1);
+					rotateAround('svg-' + cellId(i,j) + '-' + board[i][j],0,board[i][j]+2,board[i][j]);
 	}}}
 }
 
@@ -133,21 +141,26 @@ function getPlayer (i, j) {
 	return player[i][j]
 }
 
-function sleep(miliseconds) {
+function mysleep(miliseconds) {
     var currentTime = new Date().getTime();
-    while (currentTime + miliseconds >= new Date().getTime()) {
+    while (
+    	currentTime + miliseconds >= new Date().getTime()) {
     }
 }
 
 function blast (i,j) {
 
 	// setTimeout(function(){
-	/*document.getElementById(cellId(i,j)).style.backgroundColor='rgb(30,30,30)';
-	document.getElementById(cellId(i+1,j)).style.backgroundColor='rgb(60,60,60)';
-	document.getElementById(cellId(i,j+1)).style.backgroundColor='rgb(60,60,60)';
-	document.getElementById(cellId(i-1,j)).style.backgroundColor='rgb(60,60,60)';
-	document.getElementById(cellId(i,j-1)).style.backgroundColor='rgb(60,60,60)';
-	*/
+	document.getElementById(cellId(i,j)).style.backgroundColor='rgb(30,30,30)';
+	
+	if(i != nrow-1) document.getElementById(cellId(i+1,j)).style.backgroundColor='rgb(60,60,60)';
+	if(j != ncol-1) document.getElementById(cellId(i,j+1)).style.backgroundColor='rgb(60,60,60)';
+	if(i != 0) document.getElementById(cellId(i-1,j)).style.backgroundColor='rgb(60,60,60)';
+	if(j != 0) document.getElementById(cellId(i,j-1)).style.backgroundColor='rgb(60,60,60)';
+	
+
+	mysleep(500);
+
 	if (i == 0 && j == 0)
 	{
 		board[i][j] = 0;

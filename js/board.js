@@ -33,7 +33,7 @@ function setUpCredentials(){
 	$('#logoBoard').width(totalWidth);
 
 	var cellWidth = (totalWidth - 4*ncol)/ncol;
-	var cellHeight = (totalHeight - 4*nrow)/nrow;
+	var cellHeight = (totalHeight - 4*nrow - 10)/nrow;
 
 	size = 0;
 	if(cellHeight <= cellWidth) size = cellHeight;
@@ -199,8 +199,12 @@ function jiggleup(id,mode,deg,ratio){
 }
 
 function jiggledown(id,mode,deg,ratio){
-	if(deg < 0.005) return;
 	var ele = $('#' + id);
+//	ele.css({"background-color":"" + colorBack[turna]});
+	if(deg < 0.5){
+		ele.css({"background-color":"rgb(30,30,30)"});
+	 return;
+	}
 	if(mode == 0){
 		ele.css({
 			"transform": "rotate(-" + deg/2 + "deg)"
@@ -228,8 +232,11 @@ function updateTurnColor(){
 		"border-color":"" + colors[turna] + ""
 	},500);
 	*/$('.gameTable').css({
-		"background-color":""+ colorBack[turna]+""
-	});
+/*		"background-color":""+ colorBack[turna]+""
+*/	
+	"background-color":"black"
+
+});
 }
 	
 function createCell(row , col){
