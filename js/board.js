@@ -31,7 +31,10 @@ $(function(){
 
 function setUpScores ()
 {
-	$('#gameConsole').append('<table id="skoar" class="scoreboard"><tr><td> Player 1: ' + playerscore[0] + '</td></tr><tr><td> Player 2: ' + playerscore[1] + '</td></tr></table>');
+	$('#gameConsole').append('<table id="skoar" class="scoreboard"></table>');
+	for(i = 0; i < nPlay; i ++){
+		$('#skoar').append('<tr id="scoreboard-row-' + i + '"><td id="scoreboard-score-' + i + '"> Player ' + (i+1) + ': ' + playerscore[i] + '</td></tr>');
+	}
 }
 
 function refreshScores ()
@@ -67,7 +70,7 @@ function playerinc(playernum, scorede){
 function winner(turn){
 	var scored = score();
 	turna = getTurn() - 1;
-	playerinc((turna+1), peiceScore);
+	playerinc((turna), peiceScore);
 	var msg =  $('#winnerMessage');
 	msg.empty();
 	msg.css({"text-align":"center"});
