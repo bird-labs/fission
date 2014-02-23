@@ -102,8 +102,8 @@ function activateRotate(){
 
 			if(updated[i][j] == 1 && player[i][j] != 0){
 				updateCell(i, j, board[i][j]);
-				if(switchOnRotate && laststate[i][j] != board[i][j])
-					rotateAround('svg-' + cellId(i,j) + '-' + board[i][j],0,board[i][j]+2,board[i][j]);
+				if(switchOnRotate && laststate[i][j] != board[i][j] && board[i][j]!=1)
+					rotateAround('svg-' + cellId(i,j) + '-' + board[i][j],0,board[i][j]+2,100+board[i][j]);
 	}}}
 }
 
