@@ -128,11 +128,13 @@ function activateRotate(){
 }
 function rotateTheBox(id,i,j){
 	//$('#' + id).remove();
-	rotateAround(id,0,board[i][j]+2,1000);
+	if(board[i][j] != 0 && board[i][j] != 1)
+		rotateAround(id,0,board[i][j]+2,1000);
 /*	$('#' + id).css({
 		"transform": "rotate(" + 180*(Math.random()-0.5) + "deg)"
 	});
-*/}
+*/
+}
 
 function changeTurn(){
 	//activateRotate();
