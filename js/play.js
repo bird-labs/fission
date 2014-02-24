@@ -9,7 +9,10 @@ var updated = new Array(nrow);
 var laststate = new Array(nrow);
 var switchOnRotate = true;
 var peiceScore;
-
+var checkDidWin = false;
+var doturn = 1;
+var pauseInput = false;
+var pauseCount = 0;
 function getPlayers(){
 	return numberOfPlayers;
 }
@@ -56,6 +59,7 @@ function score(){
 
 function restart(){
 	turn = 1;
+	checkDidWin = false;
 	updateTurnColor();
 
 	clicks = 0;
@@ -91,15 +95,18 @@ for(var i = 1; i <= numberOfPlayers ; i ++) {
 }
 
 function incrementor (i,j){
-	for (var a = 0; a < nrow; a++){
+/*	for (var a = 0; a < nrow; a++){
 		for (var b = 0; b < ncol; b++){
 			updated[a][b] = 0;
 			laststate[a][b] = board[a][b];
-	}}
-	if ((player[i][j] == turn) || (player[i][j] == 0)){
+	}}*/
+	if(pauseInput) return;
+	doturn = turn;
+	if ((player[i][j] == doturn) || (player[i][j] == 0)){
 		increment(i,j);
-		clicks++;
-		if (clicks >= 2) didWin();
+		//clicks++;
+		//if (clicks >= 2) didWin();
+		if(checkDidWin) didWin();
 		changeTurn();
 	}
 	else return;
@@ -114,20 +121,21 @@ function activateRotate(){
 			if(updated[i][j] == 1 && player[i][j] != 0){
 				updateCell(i, j, board[i][j]);
 		//		rotateTheBox('svg-' + cellId(i,j) + '-' + board[i][j]);
-				if(switchOnRotate && laststate[i][j] != board[i][j] && board[i][j]!=1)
-					rotateAround('svg-' + cellId(i,j) + '-' + board[i][j],0,board[i][j]+2,1000);
+		//		if(switchOnRotate && laststate[i][j] != board[i][j] && board[i][j]!=1)
+		//			rotateAround('svg-' + cellId(i,j) + '-' + board[i][j],0,board[i][j]+2,Math.random()+0.2);
 			
 	}}}
 }
-function rotateTheBox(id){
+function rotateTheBox(id,i,j){
 	//$('#' + id).remove();
-	$('#' + id).css({
+	rotateAround(id,0,board[i][j]+2,1000);
+/*	$('#' + id).css({
 		"transform": "rotate(" + 180*(Math.random()-0.5) + "deg)"
 	});
-}
+*/}
 
 function changeTurn(){
-	activateRotate();
+	//activateRotate();
 	if (turn != numberOfPlayers) turn++;
 	else if (turn == numberOfPlayers) turn = 1;
 	updateTurnColor();
@@ -138,26 +146,32 @@ function getTurn(){
 }
 
 function increment (i, j) {
-	updated[i][j] = 1;
-	player[i][j] = turn;
+	//updated[i][j] = 1;
+	board[i][j] = board[i][j] + 1;
+	updateCell(i, j, board[i][j]);
+
+	player[i][j] = doturn;
 	if ((i == 0 && j == 0) || (i == 0 && j == (ncol - 1)) || (i == (nrow - 1) && j == 0) || (i == (nrow - 1) && j == (ncol - 1)))
 	{
-		if (board[i][j] == 1) 
+		if (board[i][j] >= 2) 
 			blast(i,j);
-		else board[i][j] = 1;
 	}
 	else if (j == 0 || i == 0 || j == (ncol - 1) || i == (nrow - 1))  
 	{
-		if (board[i][j] == 2)
+		if (board[i][j] >= 3)
 		blast(i,j);
-		else board[i][j]++;
 	}
 	else
 	{
-		if (board[i][j] == 3)
-		blast(i,j);
-		else board[i][j]++;	
+		if (board[i][j] >= 4)
+		blast(i,j);	
 	}
+
+	//if(updated[i][j] == 1 && laststate[i][j] != 0)
+	//$('#svg-' + cellId(i,j) + '-' + laststate[i][j]).remove();
+	//if(updated[i][j] == 1 && player[i][j] != 0)
+	updateCell(i, j, board[i][j]);
+	rotateTheBox('svg-' + cellId(i,j) + '-' + board[i][j],i,j);	
 }
 
 function sleep(ms) {
@@ -178,75 +192,71 @@ function mysleep(miliseconds) {
 }
 
 function blast (i,j) {
-	document.getElementById(cellId(i,j)).style.backgroundColor='rgb(30,30,30)';
-	
+	checkDidWin = true;
+	pauseInput = true;
+	pauseCount = pauseCount + 1;
+	setTimeout(function(){
+	pauseInput = true;
+	board[i][j] = 0;
+	player[i][j] = 0;
+	updateCell(i, j, board[i][j]);
+
 	if (i == 0 && j == 0)
 	{
-		board[i][j] = 0;
-		player[i][j] = 0;
 		increment(0,1);
 		increment(1,0);
 	}
 	else if (i == 0 && j == (ncol - 1))
 	{
-		board[i][j] = 0;
-		player[i][j] = 0;
 		increment(0,(ncol - 2));
 		increment(1,(ncol - 1));
 	}
 	else if (i == (nrow - 1) && j == 0)
 	{
-		board[i][j] = 0;
-		player[i][j] = 0;
 		increment((nrow - 1),1);
 		increment((nrow - 2),0);
 	}
 	else if (i == (nrow - 1) && j == (ncol - 1))
 	{
-		board[i][j] = 0;
-		player[i][j] = 0;
 		increment((nrow - 1), (ncol - 2));
 		increment((nrow - 2), (ncol - 1));
 	}
 	else if (i == 0)
 	{
-		board[i][j] = 0;
-		player[i][j] = 0;
 		increment((i + 1), j);
 		increment(i, (j + 1));
 		increment(i, (j - 1));
 	}
 	else if (i == (nrow - 1))
 	{
-		board[i][j] = 0;
-		player[i][j] = 0;
 		increment((i - 1), j);
 		increment(i, (j + 1));
 		increment(i, (j - 1));
 	}
 	else if (j == 0)
 	{
-		board[i][j] = 0;
-		player[i][j] = 0;
 		increment((i + 1), j);
 		increment(i, (j + 1));
 		increment((i - 1), j);
 	}
 	else if (j == 0)
 	{
-		board[i][j] = 0;
-		player[i][j] = 0;
 		increment((i + 1), j);
 		increment(i, (j - 1));
 		increment((i - 1), j);
 	}
 	else
 	{
-		board[i][j] = 0;
-		player[i][j] = 0;
 		increment(i, (j - 1));
 		increment((i + 1), j);
 		increment(i, (j + 1));
 		increment((i - 1), j);
 	}
+	pauseCount--;
+	if(pauseCount == 0){
+		pauseInput = false;
+		didWin();
+		//activateRotate();
+	}
+	},500);
 }

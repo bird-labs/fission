@@ -10,6 +10,7 @@ var colorDark = ["#880015","#0E4B20","#D37B03","#006F9D"];
 var colorBack = ["#8F0C12","#115726","#D2B402","#00618A"];
 
 $(function(){
+	$('#infoModal').hide();
 	checkBoardSize();
 	$('#gameConsole').append('<table id="skoar" class="scoreboard"></table>');
 	setup();
@@ -62,13 +63,13 @@ function checkBoardSize(){
 function ToggleScoreBoard(){
 	if(state == 0){
 		$('#myicon').removeClass('glyphicon-cog');
-		$('.toggleButton').css({"height":"100%"});
+		$('#togglerButton').css({"height":"100%"});
 		$('#myicon').addClass('glyphicon-play');
 		state = 1;
 	}
 	else{
 		$('#myicon').addClass('glyphicon-cog');
-		$('.toggleButton').css({"height":"25px"});
+		$('#togglerButton').css({"height":"25px"});
 		$('#myicon').removeClass('glyphicon-play');
 		state = 0;
 	}
@@ -103,7 +104,7 @@ function setUpScores ()
 	for(i = 0; i < numberOfPlayers; i ++){
 		$('#skoar').append('<tr id="scoreboard-row-' + i + '">\
 			<td style="background-color : ' + colorDark[i] +'" id="scoreboard-score-' + i + '"> Player\
-			 ' + (i+1) + ' <br/><span style="font-size: 40px;"> ' + playerscore[i] + '</span></td></tr>');
+			 ' + (i+1) + ' &nbsp;&nbsp;  <span style="font-size: 40px;"> ' + playerscore[i] + '</span></td></tr>');
 	}
 }
 
@@ -113,6 +114,9 @@ function refreshScores ()
 	setUpScores();
 }
 
+function Information(){
+	$('#infoModal').show();
+}
 function setUpCredentials(){
 	var totalWidth = window.innerWidth;
 	var totalHeight = window.innerHeight;
@@ -139,7 +143,7 @@ function playerinc(playernum, scorede){
 
 function winner(turn){
 	var scored = score();
-	turna = getTurn() - 1;
+	turna = doturn - 1;
 	playerinc((turna), peiceScore);
 	var msg =  $('#winnerMessage');
 	msg.empty();
@@ -180,11 +184,11 @@ function setVal(){
 function updateCell(row,col,state){
 	var cell = '#' + cellId(row,col);
 	var celli = cellId(row,col);
-	turna = getTurn() - 1;
+	turna = doturn - 1;
 	$(cell).empty();	
 	if(state == 0){
 		$(cell).css({
-				"background-color":"rgb(30,30,30)"
+				"background-color":"rgb(50,50,50)"
 		});
 	}
 	if(state == 1){
@@ -244,6 +248,31 @@ function updateCell(row,col,state){
 				"background-color":"rgb(30,30,30)"
 		});
 	}
+	if(state >= 4){
+		$(cell).append('\
+			<svg id="svg-' + celli + '-4" style="z-index:99; text-align:center; vertical-align:middle;\
+			height:'+size+'px; width:'+size+'px;"> \
+			<defs>\
+			<linearGradient id="grad-'+celli+'-4" x1="0%" y1="0%" x2="100%" y2="0%">\
+			<stop offset="0%" style="stop-color:' + colors[turna] + ';stop-opacity:1" />\
+			<stop offset="100%" style="stop-color:' + colorDark[turna] + ';stop-opacity:1" />\
+			</linearGradient>\
+			</defs>\
+			<circle cx="42%" cy="42%" r="14%" stroke="url(#grad-'+celli+'-4)"\
+			stroke-width="1" fill="url(#grad-'+celli+'-4)" /> \
+			<circle cx="37%" cy="60%" r="16%" stroke="url(#grad-'+celli+'-4)"\
+			stroke-width="1" fill="url(#grad-'+celli+'-4)" /> \
+			<circle cx="60%" cy="40%" r="17%" stroke="url(#grad-'+celli+'-4)"\
+			stroke-width="1" fill="url(#grad-'+celli+'-4)" /> \
+			<circle cx="60%" cy="60%" r="20%" stroke="url(#grad-'+celli+'-4)"\
+			stroke-width="1" fill="url(#grad-'+celli+'-4)" /> \
+			</svg>');
+		$(cell).css({
+				"background-color":"rgb(30,30,30)"
+		});
+	}
+
+
 }
 
 function rotateAround(id, deg,delta,revs){

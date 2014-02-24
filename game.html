@@ -9,7 +9,7 @@
 
 	<script type="text/javascript" src="js/play.js"></script>
 	<script type="text/javascript" src="js/board.js"></script>
-  <title>Fission!</title>
+
 </head>
 
 <body>
@@ -17,6 +17,7 @@
 	<div id="gameConsole" class="gameConsole">
 
 	</div>
+
 <div class="modal fade mymodal" id="winModal" role="dialog" aria-hidden="true">
   <div class="modal-dialog mymodal">
     <div class="modal-content mymodal" style="background-color: rgb(40,40,40);">
@@ -49,8 +50,46 @@
      </div>
     </div></div>
 </div>
-<div class="toggleButton" onclick="ToggleScoreBoard();">
+
+<div id="infoModal" style="position:fixed; top: 2.5%; left: 2.5%; width:95%; padding: 20px; color:rgb(230,230,230); background-color: rgba(100,100,100,0.8); height:95%; overflow:auto; margin:auto; border-radius:20px;">
+  <div>
+      <div style="font-family: 'Buxton Sketch'; text-align:center; font-size:30px;">
+        How To Play!
+      </div>
+      <table style="width:420px; font-size:20px; margin:auto;" >
+        <tr>
+          <td><img class="imageModal" src="images/ball1.PNG"></td>
+          <td>Click once to put an Atom</td>
+        </tr>
+        <tr>
+          <td>Click again on your turn to do a fission!</td>
+          <td><img class="imageModal" src="images/ball2.PNG"></td>
+        </tr>
+        <tr>
+          <td><img class="imageModal" src="images/ball3.PNG"></td>
+          <td>Yet again, for a triplet</td>
+        </tr>
+        <tr>
+          <td>Inner atoms explode at 4, edge atoms explode at 3 while corner atoms explode at 2 fissions. On explosion the neighbouring atoms will be fused with the new atoms and convert to that color.</td>
+          <td><img class="imageModal" src="images/ball4.PNG"></td>
+        </tr>
+        <tr>
+        <td colspan="2"><br/>
+        The game terminates when the entire board has just one color of atoms.
+        </td>
+        </tr>
+        </table> 
+        <div style="text-align:center">
+      <button class="btn btn-info" onclick="$('#infoModal').hide();" style="margin:10px; border-radius:0px!important;">Got It</button>
+      </div> 
+</div></div>
+
+
+<div class="toggleButton" id="togglerButton" onclick="ToggleScoreBoard();">
 <span id="myicon" class="glyphicon glyphicon-cog"></span>
+</div>
+<div class="toggleButton" style="top:auto; bottom: 0px" onclick="Information();">
+<span id="myicon" class="glyphicon glyphicon-question-sign"></span>
 </div>
 </body>
 </html>
