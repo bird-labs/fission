@@ -17,7 +17,7 @@ $(function(){
 	setTimeout(
 		function(){
 			$('#logoBoard').fadeOut();
-		},1300);
+		},2000);
 	setUpScores();
 	setUpBoard();
 	$('.scoreboard').hide(0);
@@ -35,9 +35,19 @@ function checkBoardSize(){
 	var minimumDif = 10000;
 	var minimumIdr = 0;
 	var minimumIdc = 0;
-	var rowArr = [1,2,3,4,5,6,7,8,9,10];
-	var colArr = [1,2,3,4,5,6,7,8,9,10];
-	for(var i = 0 ; i < rowArr.length ; i++){
+	// var rowArr = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+	// var colArr = [1,2,3,4,5,6,7,8,9,10];
+	var ratioArrr = [10,10,8,9,8,9,13,6,6,6,12,8,9,7];
+	var ratioArrc = [5,6,6,6,12,13,9,10,8,9,8,8,7,9];
+
+	for(var i = 0 ; i < ratioArrr.length ; i++){
+		if( Math.abs(ratioArrc[i]/ratioArrr[i] - trueRatio) <= minimumDif){
+				minimumDif = Math.abs(ratioArrc[i]/ratioArrr[i] - trueRatio);
+				minimumIdc = ratioArrc[i];
+				minimumIdr = ratioArrr[i];	
+		}
+	}
+	/*for(var i = 0 ; i < rowArr.length ; i++){
 		for(var j = 0 ; j < rowArr.length ; j++){
 			if( Math.abs(colArr[i]/rowArr[j] - trueRatio) <= minimumDif){
 				minimumDif = Math.abs(colArr[i]/rowArr[j] - trueRatio);
@@ -45,7 +55,7 @@ function checkBoardSize(){
 				minimumIdr = rowArr[j];
 			}
 		}
-	}
+	}*/
 	ncol = minimumIdc;
 	nrow = minimumIdr;
 }

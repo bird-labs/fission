@@ -44,12 +44,9 @@ body{
 	color: white;
 	overflow: hidden;
 }
-.gameCell:hover{
-	background-color: rgb(50,50,50);
-}
 .gameRow{
-	border-right: 10px solid black;
-	border-left: 10px solid black;
+	/*border-right: 10px solid black;*/
+	/*border-left: 10px solid black;*/
 	
 }
 
@@ -60,7 +57,7 @@ body{
 	right: 20px;
 	top: 0px;
 	height: 100%;
-	border-left: 2px rgb(40,40,40) solid;
+	/*border-left: 2px rgb(40,40,40) solid;*/
 	background-color: rgb(10,10,10);
 	text-align: center;
 	color: white;
@@ -69,6 +66,7 @@ body{
 	font-family: 'Buxton Sketch', Calibri;
 	text-shadow: 2px 2px black;
 	font-size: 25px;
+	padding: 0px;
 	padding-left: 30px;
 	padding-right: 30px;
 }
@@ -76,13 +74,15 @@ body{
 	vertical-align: middle;
 	text-align: center;
 	font-weight: bold;
-	font-size: 30px;
+	font-size: 20px;
 	text-shadow: 1px 1px black;
 	color: rgb(200,200,200);
 	position:fixed; 
-	right: 0px; 
-	top: 0px; 
-	width:30px; 
+	right: 1px; 
+	top: 1px;
+	border-radius: 3px; 
+	width:25px; 
 	background-color: rgb(70,70,70); 
-	height:100%;
+	height: 25px;
+	z-index: 1000;
 }

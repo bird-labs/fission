@@ -113,9 +113,17 @@ function activateRotate(){
 
 			if(updated[i][j] == 1 && player[i][j] != 0){
 				updateCell(i, j, board[i][j]);
+		//		rotateTheBox('svg-' + cellId(i,j) + '-' + board[i][j]);
 				if(switchOnRotate && laststate[i][j] != board[i][j] && board[i][j]!=1)
-					rotateAround('svg-' + cellId(i,j) + '-' + board[i][j],0,board[i][j]+2,Math.random()+0.2);
+					rotateAround('svg-' + cellId(i,j) + '-' + board[i][j],0,board[i][j]+2,1000);
+			
 	}}}
+}
+function rotateTheBox(id){
+	//$('#' + id).remove();
+	$('#' + id).css({
+		"transform": "rotate(" + 180*(Math.random()-0.5) + "deg)"
+	});
 }
 
 function changeTurn(){
