@@ -37,7 +37,7 @@ function setup(){
 			board[i][j] = 0;
 			player[i][j] = 0;
 			updated[i][j] = 0;
-			laststate[i][j] = 0;
+		//	laststate[i][j] = 0;
 		}
 	}
 }
@@ -68,7 +68,7 @@ function restart(){
 			board[i][j] = 0;
 			player[i][j] = 0;
 			updated[i][j] = 0;
-			laststate[i][j] = 0;
+			//laststate[i][j] = 0;
 			
 			updateCell(i,j,0);
 	}}
@@ -103,9 +103,14 @@ function incrementor (i,j){
 	if(pauseInput) return;
 	doturn = turn;
 	if ((player[i][j] == doturn) || (player[i][j] == 0)){
+<<<<<<< HEAD
 		increment(i,j);
 		//clicks++;
 		//if (clicks >= 2) didWin();
+=======
+		incrementValue(i,j);
+		checkInvalid();
+>>>>>>> Animation corrected
 		if(checkDidWin) didWin();
 		changeTurn();
 	}
@@ -137,19 +142,66 @@ function rotateTheBox(id,i,j){
 }
 
 function changeTurn(){
+<<<<<<< HEAD
 	//activateRotate();
+=======
+>>>>>>> Animation corrected
 	if (turn != numberOfPlayers) turn++;
 	else if (turn == numberOfPlayers) turn = 1;
 	updateTurnColor();
+}
+
+function checkInvalid(){
+	 pauseInput = true;
+	var  isInvalid = true;
+	for(var i =0; i< nrow; i++){
+		for( var j = 0 ; j < ncol ; j++){
+			laststate[i][j] = true;
+	}}
+	for(var i =0; i< nrow; i++){
+		for( var j = 0 ; j < ncol ; j++){
+			if(!laststate[i][j]) continue;
+			if (((i == 0 && j == 0) 
+				|| (i == 0 && j == (ncol - 1)) 
+				|| (i == (nrow - 1) && j == 0) 
+				|| (i == (nrow - 1) && j == (ncol - 1))) && (board[i][j] >= 2)){
+				isInvalid = false;
+				blast(i,j);
+			}
+			else if ((j == 0 
+				|| i == 0 
+				|| j == (ncol - 1) 
+				|| i == (nrow - 1)) && (board[i][j] >= 3)){
+				isInvalid = false;
+				blast(i,j);
+			}
+			else if(board[i][j] >= 4){
+				isInvalid = false;
+				blast(i,j);
+			}	
+		}
+	}
+	if(isInvalid) {
+		pauseInput = false;
+		return;}
+	
+	setTimeout(
+		function()
+		{
+			checkInvalid();
+		}
+	,400);
 }
 
 function getTurn(){
 	return turn;
 }
 
+/*
 function increment (i, j) {
 	//updated[i][j] = 1;
 	board[i][j] = board[i][j] + 1;
+<<<<<<< HEAD
 	updateCell(i, j, board[i][j]);
 
 	player[i][j] = doturn;
@@ -167,20 +219,51 @@ function increment (i, j) {
 	{
 		if (board[i][j] >= 4)
 		blast(i,j);	
+=======
+	player[i][j] = doturn;
+
+	if ((i == 0 && j == 0) || (i == 0 && j == (ncol - 1)) || (i == (nrow - 1) && j == 0) || (i == (nrow - 1) && j == (ncol - 1)))
+	{
+		if (board[i][j] >= 2){ 
+			board[i][j] = 2;
+			updateCell(i, j, board[i][j]);	
+			blast(i,j);
+		}
+	}
+	else if (j == 0 || i == 0 || j == (ncol - 1) || i == (nrow - 1))  
+	{
+		if (board[i][j] >= 3){
+			board[i][j] = 3;
+			updateCell(i, j, board[i][j]);
+			blast(i,j);
+		}	
+	}
+	else
+	{
+		if (board[i][j] >= 4){
+			board[i][j] = 4;
+			updateCell(i, j, board[i][j]);
+			blast(i,j);
+		}
+>>>>>>> Animation corrected
 	}
 
 	//if(updated[i][j] == 1 && laststate[i][j] != 0)
 	//$('#svg-' + cellId(i,j) + '-' + laststate[i][j]).remove();
 	//if(updated[i][j] == 1 && player[i][j] != 0)
 	updateCell(i, j, board[i][j]);
+<<<<<<< HEAD
 	rotateTheBox('svg-' + cellId(i,j) + '-' + board[i][j],i,j);	
+=======
+	//rotateTheBox('svg-' + cellId(i,j) + '-' + board[i][j]);	
+>>>>>>> Animation corrected
 }
 
 function sleep(ms) {
     var time = new Date();
     time.setTime(time.getTime() + ms);
     while (new Date().getTime() < time.getTime()) {}
-}
+}*/
 
 function getPlayer (i, j) {
 	return player[i][j];
@@ -193,18 +276,32 @@ function mysleep(miliseconds) {
     }
 }
 
+function incrementValue(i,j){
+	player[i][j] = doturn;
+	board[i][j] = board[i][j] + 1;
+	updateCell(i, j, board[i][j]);
+	laststate[i][j] = false;
+}
+
 function blast (i,j) {
 	checkDidWin = true;
+<<<<<<< HEAD
 	pauseInput = true;
 	pauseCount = pauseCount + 1;
 	setTimeout(function(){
 	pauseInput = true;
 	board[i][j] = 0;
 	player[i][j] = 0;
+=======
+	board[i][j] = 0;
+	player[i][j] = 0;
+
+>>>>>>> Animation corrected
 	updateCell(i, j, board[i][j]);
 
 	if (i == 0 && j == 0)
 	{
+<<<<<<< HEAD
 		increment(0,1);
 		increment(1,0);
 	}
@@ -253,6 +350,56 @@ function blast (i,j) {
 		increment((i + 1), j);
 		increment(i, (j + 1));
 		increment((i - 1), j);
+=======
+		incrementValue(0,1);
+		incrementValue(1,0);
+	}
+	else if (i == 0 && j == (ncol - 1))
+	{
+		incrementValue(0,(ncol - 2));
+		incrementValue(1,(ncol - 1));
+	}
+	else if (i == (nrow - 1) && j == 0)
+	{
+		incrementValue((nrow - 1),1);
+		incrementValue((nrow - 2),0);
+	}
+	else if (i == (nrow - 1) && j == (ncol - 1))
+	{
+		incrementValue((nrow - 1), (ncol - 2));
+		incrementValue((nrow - 2), (ncol - 1));
+	}
+	else if (i == 0)
+	{
+		incrementValue((i + 1), j);
+		incrementValue(i, (j + 1));
+		incrementValue(i, (j - 1));
+	}
+	else if (i == (nrow - 1))
+	{
+		incrementValue((i - 1), j);
+		incrementValue(i, (j + 1));
+		incrementValue(i, (j - 1));
+	}
+	else if (j == 0)
+	{
+		incrementValue((i + 1), j);
+		incrementValue(i, (j + 1));
+		incrementValue((i - 1), j);
+	}
+	else if (j == 0)
+	{
+		incrementValue((i + 1), j);
+		incrementValue(i, (j - 1));
+		incrementValue((i - 1), j);
+	}
+	else
+	{
+		incrementValue(i, (j - 1));
+		incrementValue((i + 1), j);
+		incrementValue(i, (j + 1));
+		incrementValue((i - 1), j);
+>>>>>>> Animation corrected
 	}
 	pauseCount--;
 	if(pauseCount == 0){
