@@ -103,14 +103,8 @@ function incrementor (i,j){
 	if(pauseInput) return;
 	doturn = turn;
 	if ((player[i][j] == doturn) || (player[i][j] == 0)){
-<<<<<<< HEAD
-		increment(i,j);
-		//clicks++;
-		//if (clicks >= 2) didWin();
-=======
 		incrementValue(i,j);
 		checkInvalid();
->>>>>>> Animation corrected
 		if(checkDidWin) didWin();
 		changeTurn();
 	}
@@ -131,21 +125,14 @@ function activateRotate(){
 			
 	}}}
 }
-function rotateTheBox(id,i,j){
+function rotateTheBox(id){
 	//$('#' + id).remove();
-	if(board[i][j] != 0 && board[i][j] != 1)
-		rotateAround(id,0,board[i][j]+2,1000);
-/*	$('#' + id).css({
+	$('#' + id).css({
 		"transform": "rotate(" + 180*(Math.random()-0.5) + "deg)"
 	});
-*/
 }
 
 function changeTurn(){
-<<<<<<< HEAD
-	//activateRotate();
-=======
->>>>>>> Animation corrected
 	if (turn != numberOfPlayers) turn++;
 	else if (turn == numberOfPlayers) turn = 1;
 	updateTurnColor();
@@ -201,25 +188,6 @@ function getTurn(){
 function increment (i, j) {
 	//updated[i][j] = 1;
 	board[i][j] = board[i][j] + 1;
-<<<<<<< HEAD
-	updateCell(i, j, board[i][j]);
-
-	player[i][j] = doturn;
-	if ((i == 0 && j == 0) || (i == 0 && j == (ncol - 1)) || (i == (nrow - 1) && j == 0) || (i == (nrow - 1) && j == (ncol - 1)))
-	{
-		if (board[i][j] >= 2) 
-			blast(i,j);
-	}
-	else if (j == 0 || i == 0 || j == (ncol - 1) || i == (nrow - 1))  
-	{
-		if (board[i][j] >= 3)
-		blast(i,j);
-	}
-	else
-	{
-		if (board[i][j] >= 4)
-		blast(i,j);	
-=======
 	player[i][j] = doturn;
 
 	if ((i == 0 && j == 0) || (i == 0 && j == (ncol - 1)) || (i == (nrow - 1) && j == 0) || (i == (nrow - 1) && j == (ncol - 1)))
@@ -245,18 +213,13 @@ function increment (i, j) {
 			updateCell(i, j, board[i][j]);
 			blast(i,j);
 		}
->>>>>>> Animation corrected
 	}
 
 	//if(updated[i][j] == 1 && laststate[i][j] != 0)
 	//$('#svg-' + cellId(i,j) + '-' + laststate[i][j]).remove();
 	//if(updated[i][j] == 1 && player[i][j] != 0)
 	updateCell(i, j, board[i][j]);
-<<<<<<< HEAD
-	rotateTheBox('svg-' + cellId(i,j) + '-' + board[i][j],i,j);	
-=======
 	//rotateTheBox('svg-' + cellId(i,j) + '-' + board[i][j]);	
->>>>>>> Animation corrected
 }
 
 function sleep(ms) {
@@ -285,72 +248,13 @@ function incrementValue(i,j){
 
 function blast (i,j) {
 	checkDidWin = true;
-<<<<<<< HEAD
-	pauseInput = true;
-	pauseCount = pauseCount + 1;
-	setTimeout(function(){
-	pauseInput = true;
-	board[i][j] = 0;
-	player[i][j] = 0;
-=======
 	board[i][j] = 0;
 	player[i][j] = 0;
 
->>>>>>> Animation corrected
 	updateCell(i, j, board[i][j]);
 
 	if (i == 0 && j == 0)
 	{
-<<<<<<< HEAD
-		increment(0,1);
-		increment(1,0);
-	}
-	else if (i == 0 && j == (ncol - 1))
-	{
-		increment(0,(ncol - 2));
-		increment(1,(ncol - 1));
-	}
-	else if (i == (nrow - 1) && j == 0)
-	{
-		increment((nrow - 1),1);
-		increment((nrow - 2),0);
-	}
-	else if (i == (nrow - 1) && j == (ncol - 1))
-	{
-		increment((nrow - 1), (ncol - 2));
-		increment((nrow - 2), (ncol - 1));
-	}
-	else if (i == 0)
-	{
-		increment((i + 1), j);
-		increment(i, (j + 1));
-		increment(i, (j - 1));
-	}
-	else if (i == (nrow - 1))
-	{
-		increment((i - 1), j);
-		increment(i, (j + 1));
-		increment(i, (j - 1));
-	}
-	else if (j == 0)
-	{
-		increment((i + 1), j);
-		increment(i, (j + 1));
-		increment((i - 1), j);
-	}
-	else if (j == 0)
-	{
-		increment((i + 1), j);
-		increment(i, (j - 1));
-		increment((i - 1), j);
-	}
-	else
-	{
-		increment(i, (j - 1));
-		increment((i + 1), j);
-		increment(i, (j + 1));
-		increment((i - 1), j);
-=======
 		incrementValue(0,1);
 		incrementValue(1,0);
 	}
@@ -399,13 +303,5 @@ function blast (i,j) {
 		incrementValue((i + 1), j);
 		incrementValue(i, (j + 1));
 		incrementValue((i - 1), j);
->>>>>>> Animation corrected
 	}
-	pauseCount--;
-	if(pauseCount == 0){
-		pauseInput = false;
-		didWin();
-		//activateRotate();
-	}
-	},500);
 }
