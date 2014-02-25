@@ -103,9 +103,9 @@ function incrementor (i,j){
 	if(pauseInput) return;
 	doturn = turn;
 	if ((player[i][j] == doturn) || (player[i][j] == 0)){
+		clicks++;
 		incrementValue(i,j);
 		checkInvalid();
-		if(checkDidWin) didWin();
 		changeTurn();
 	}
 	else return;
@@ -169,6 +169,7 @@ function checkInvalid(){
 		}
 	}
 	if(isInvalid) {
+		if(clicks > 2) didWin();
 		pauseInput = false;
 		return;}
 	
